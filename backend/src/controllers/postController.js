@@ -34,10 +34,19 @@ async function getPostComments(req, res, next) {
   }
 }
 async function uploadPost(req, res, next) {
+  console.log(req.body)
   try {
-    console.log("hi") 
+    await prisma.post.create({
+      data: {
+        title: req.body.title,
+        content: req.body.content,
+        authorId: req.body.userId
+      }
+    })
+    res.json({success: true, msg: "Post uploaded"})
   } catch(err) {
     console.error(err);
+    res.json({success: false, err})
   }
 }
 async function postComment(req, res, next) { console.log("hi")}
