@@ -4,6 +4,9 @@ const app = express()
 const index = require("./routes/index.js")
 const posts = require("./routes/posts.js")
 
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
 app.use("/", index)
 app.use("/posts", posts)
 
