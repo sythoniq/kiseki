@@ -45,7 +45,6 @@ async function handleLogin(req, res, next) {
       throw(new Error("User not found"))  
     }
   } catch(err) {
-    console.log(err)
     return res.json({success: false, msg: "Login failed", err})
   }
 }
