@@ -16,6 +16,7 @@ model User {
   id    Int     @id @default(autoincrement()) 
   name  String  @unique
   hash  String
+  author Boolean @default(false)
   posts Post[]
   comments Comment[]
 } 

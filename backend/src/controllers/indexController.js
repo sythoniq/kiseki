@@ -5,7 +5,7 @@ const prisma = require('../configs/prisma.js')
 const checkUsername = require('../configs/helpers.js').checkUsername;
 
 async function handleRegister(req, res, next) {
-  try {
+  try { 
     const { username, password } = req.body;
     const hash = await bcrypt.hash(password, 10)
     const result = await checkUsername(username);  

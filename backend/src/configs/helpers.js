@@ -1,3 +1,5 @@
+require('dotenv').config()
+const jwt = require('jsonwebtoken')
 const prisma = require('./prisma.js')
 
 async function checkUsername(username) { // Check username availability
@@ -17,6 +19,46 @@ async function checkUsername(username) { // Check username availability
   } 
 }
 
+async function validateUser(req, res, next) {
+  const token = req.headers['authorization']
+  try {
+    const result = jwt.verify(token, process.env.SECRET)
+    
+    if (result) {
+      const user = await prisma.user.findUnique({
+        where: {id: Number(result.userid)}
+      })   
+      if (user) {
+        req.body.authorid = user.id;
+        next();
+      } else {
+        throw(new Error("User not found"))
+      }
+    } else {
+      throw(new Error("Jwt not verified"))
+    }
+  } catch(err) {
+    return res.status(401).json({success: false, msg: "Unauthorized to access this route", err})
+  }
+}
+
+async function validateAuthor(req, res, next) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: Number(req.body.authorid) }
+    })
+    if (user.author) {
+      next()
+    } else {
+      throw(new Error("Unauthorized to post"))
+    }
+  } catch(err) {
+    return res.status(401).json({success: false, msg: "Unauthorized to make posts", err})
+  }
+}
+
 module.exports = {
-  checkUsername
+  checkUsername,
+  validateUser,
+  validateAuthor
 }
