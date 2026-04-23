@@ -1,13 +1,13 @@
 import { Link } from 'react-router'
+import { useState, useEffect } from 'react'
 
 export default function Posts() {
   const API = import.meta.env.VITE_BASE_API_URL
-  const [fetching, setFetching] = useState(false)
+  const [fetching, setFetching] = useState(true)
   const [posts, setPosts] = useState() 
 
   useEffect(() => {
     async function getPosts() {
-      setFetching(true)
       const result = await fetch(API+"/posts");
       const data = await result.json()
       if (data.success) { 

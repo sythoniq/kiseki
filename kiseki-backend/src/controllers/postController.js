@@ -64,10 +64,25 @@ async function postComment(req, res, next) {
   } 
 }
 
+async function getCommenter(req, res, next) {
+  try {
+    const {commenterid} = req.params;
+    const commenter = await prisma.user.findUnique({
+      where: {
+        id: commenterid
+      }
+    })
+    res.json({success: true, commenter})
+  } catch(err) {
+    res.json({success: false, err})
+  }
+}
+
 module.exports = {
   getPosts,
   getPost,
   getPostComments,
   uploadPost,
-  postComment
+  postComment,
+  getCommenter
 }
