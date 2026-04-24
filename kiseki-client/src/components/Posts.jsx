@@ -15,15 +15,13 @@ export default function Posts() {
         setPosts(data.posts)
       } else {
         setFetching(false) 
-        console.error(err)
+        console.error(data.err)
       }
     }
     return () => {
       getPosts()
     }
-  }, [API, posts])
-
-  console.log(fetching)
+  }, [API])
 
   if (fetching == true) {
     return (

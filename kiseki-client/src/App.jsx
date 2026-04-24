@@ -37,7 +37,7 @@ export default function App() {
     return () => {
       authorize()
     }
-  }, [loggedIn]);
+  }, [API]);
 
   function logout() {
     try {
@@ -48,10 +48,11 @@ export default function App() {
     }
   }
 
+
   return (
     <>
       <Nav loggedIn={loggedIn} logout={logout}/>
-      <Outlet />
+      <Outlet context={{loggedIn, user}}/>
     </>
   )
 }
