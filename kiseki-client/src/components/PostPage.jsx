@@ -4,28 +4,14 @@ import { useParams, useOutletContext, Link } from 'react-router'
 
 export default function Post() {
   const API = import.meta.env.VITE_BASE_API_URL
-  const [fetchingPost, setFetchingPost] = useState(true)
   const [fetchingComments, setFetchingComments] = useState(true)
   const { loggedIn, user } = useOutletContext()
-  const [post, setPost] = useState()
   const [comments, setComments] = useState()
   const [comment, setComment] = useState()
   const {postId} = useParams() 
 
 
   useEffect(() => {
-    async function getPost() {
-      const result = await fetch(API+`/posts/${postId}`);
-      const data = await result.json()
-      if (data.success) {
-        setPost(data.post)
-        setFetchingPost(false)
-      } else {
-        setFetchingPost(false)
-        console.error(data.err)
-      }
-    }
-
     async function getPostComments() {
       const result = await fetch(API+`/posts/${postId}/comments`)
       const data = await result.json()
