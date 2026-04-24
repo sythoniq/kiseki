@@ -6,6 +6,9 @@ const auth = require("../configs/helpers.js").validateUser
 
 index.post("/register", controller.handleRegister)
 index.post("/login", controller.handleLogin)
-index.post("/auth", auth, (req, res) => {res.json({success: true, msg: "User authrorized"})})
+index.post("/auth", auth, (req, res) => {
+  const user = req.user;
+  res.json({success: true, msg: "User authrorized", user})
+})
 
 module.exports = index

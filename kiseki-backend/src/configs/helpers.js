@@ -29,7 +29,7 @@ async function validateUser(req, res, next) {
         where: {id: Number(result.userid)}
       })   
       if (user) {
-        req.body.authorid = user.id;
+        req.user = {id: user.id, name: user.name};
         next();
       } else {
         throw(new Error("User not found"))
