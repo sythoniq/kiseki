@@ -20,8 +20,8 @@ async function postsLoader() {
   }
 }
 
-async function postLoader({params}) {
-  const res = await fetch(API+`/posts/${params.postId}`) 
+async function postLoader(postId) {
+  const res = await fetch(API+`/posts/${postId}`) 
   const data = await res.json()
   if (data.success) {
     return data.post;
@@ -30,13 +30,31 @@ async function postLoader({params}) {
   }
 }
 
+async function getPostComments(postId) {
+  const res = await fetch(API+`/posts/${postId}/comments`)
+  const data = await res.json()
+  if (data.success) {
+    return data.comments
+  } else {
+    throw new Error("Database error", { status: 404 })
+  }
+}
+
+async function fullyLoadPost({params}) {
+  const [ post, comments ] = await Promise.all([
+    postLoader(params.postId),
+    getPostComments(params.postId)
+  ])
+  return { post, comments }
+}
+
 const routes = [
   {
     path: "/",
     element: <App />,
     children: [
       { index: true, element: <Posts />, loader: postsLoader },
-      { path: "posts/:postId", element: <Post />, loader: postLoader}
+      { path: "posts/:postId", element: <Post />, loader: fullyLoadPost}
     ]
   },
   {
