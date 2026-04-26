@@ -23,11 +23,10 @@ async function getPost(req, res, next) {
 
 async function getPostComments(req, res, next) {
   try {
-    const comments = await prisma.comment.findMany({
-      where: {
-        postId: Number(req.params.postId) 
-      }
-    })
+    const comments = await prisma.$queryRaw`
+      SELECT content, "User".name FROM "Comment" INNER JOIN "User" ON
+      "Comment"."authorId"="User"."id";
+    `;
     res.json({success: true, comments})
   } catch(err) {
     res.json({success: false, err})
