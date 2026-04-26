@@ -4,12 +4,14 @@ import { useParams, useOutletContext, Link, useLoaderData } from 'react-router'
 
 export default function Post() {
   const API = import.meta.env.VITE_BASE_API_URL
-  const { loggedIn, user } = useOutletContext()
+  const { loggedIn } = useOutletContext()
   const [comment, setComment] = useState()
   const {postId} = useParams() 
   const { post, comments } = useLoaderData()
 
-  async function postComment() {
+  async function postComment(e) {
+    e.preventDefault()
+    console.log(comment)
     const token = localStorage.getItem('jwt-token')
     const result = await fetch(API+`/posts/${postId}/comment`, {
       method: "POST",
@@ -17,18 +19,19 @@ export default function Post() {
         "Content-Type": "application/json",
         "Authorization": token
       },
-      body: {
-        content: comment,
-        authorid: user.id
-      }
+      body: JSON.stringify({
+        content: comment
+      })
     });
     const data = await result.json()
     if (data.success) {
-      comments.append([...comments, data.comment])
+      comments.push([...comments, data.comment])
     } else {
       throw new Error("Databaase error", data.err)
     }
   }
+
+  // TODO: Set a key for each card by redesigning the database models
 
   return (
     <main className="post-page">
@@ -39,7 +42,8 @@ export default function Post() {
       {loggedIn ? (
         <div className="uplaod-comment">
           <form>
-            <input type="text" name="comment" placeholder="Write a comment" />
+            <input type="text" name="comment" placeholder="Write a comment"
+        onChange={(e) => setComment(e.target.value)}/>
             <button onClick={postComment}>Comment</button>
           </form>
         </div>

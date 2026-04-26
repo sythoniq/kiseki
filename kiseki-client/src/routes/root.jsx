@@ -3,8 +3,10 @@ import Login from '../components/Login.jsx'
 import Register from '../components/Register.jsx'
 import Posts from '../components/Posts.jsx'
 import Post from '../components/PostPage.jsx'
+import Loading from '../components/Loading.jsx'
 
 const API = import.meta.env.VITE_BASE_API_URL
+
 
 async function postsLoader() {
   try {
@@ -52,6 +54,7 @@ const routes = [
   {
     path: "/",
     element: <App />,
+    hydrateFallbackElement: <Loading />,
     children: [
       { index: true, element: <Posts />, loader: postsLoader },
       { path: "posts/:postId", element: <Post />, loader: fullyLoadPost}

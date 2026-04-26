@@ -48,11 +48,10 @@ async function uploadPost(req, res, next) {
 }
 async function postComment(req, res, next) { 
   try {
-    const { content, authorid } = req.body; 
     const comment = await prisma.comment.create({
       data: {
-        content,
-        authorId: Number(authorid),
+        content: req.body.content,
+        authorId: Number(req.user.id),
         postId: Number(req.params.postId) 
       }
     }) 
@@ -63,25 +62,10 @@ async function postComment(req, res, next) {
   } 
 }
 
-async function getCommenter(req, res, next) {
-  try {
-    const {commenterid} = req.params;
-    const commenter = await prisma.user.findUnique({
-      where: {
-        id: commenterid
-      }
-    })
-    res.json({success: true, commenter})
-  } catch(err) {
-    res.json({success: false, err})
-  }
-}
-
 module.exports = {
   getPosts,
   getPost,
   getPostComments,
   uploadPost,
-  postComment,
-  getCommenter
+  postComment
 }
