@@ -43,11 +43,11 @@ async function getPostComments(postId) {
 }
 
 async function fullyLoadPost({params}) {
-  const [ post, comments ] = await Promise.all([
+  const [ post, postComments ] = await Promise.all([
     postLoader(params.postId),
     getPostComments(params.postId)
   ])
-  return { post, comments }
+  return { post, postComments }
 }
 
 const routes = [

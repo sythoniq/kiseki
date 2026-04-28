@@ -1,6 +1,17 @@
 @import url('./styles/header.css');
 @import url('./styles/post.css');
 
+* {
+  font-family: monospace;
+}
+
 body {
   background-color: #FAF7F2;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

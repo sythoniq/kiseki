@@ -6,12 +6,18 @@ export default function Post() {
   const API = import.meta.env.VITE_BASE_API_URL
   const { loggedIn } = useOutletContext()
   const [comment, setComment] = useState()
+  const [comments, setComments] = useState(null)
   const {postId} = useParams() 
-  const { post, comments } = useLoaderData()
+  const { post, postComments } = useLoaderData()
+  
+  useEffect(() => {
+    return () => {
+      setComments(postComments);
+    }
+  }, [postComments])
 
   async function postComment(e) {
     e.preventDefault()
-    console.log(comment)
     const token = localStorage.getItem('jwt-token')
     const result = await fetch(API+`/posts/${postId}/comment`, {
       method: "POST",
@@ -25,10 +31,15 @@ export default function Post() {
     });
     const data = await result.json()
     if (data.success) {
-      comments.push([...comments, data.comment])
+      setComments([...comments, data.comment])
+      console.log(comments, data.comment)
     } else {
       throw new Error("Databaase error", data.err)
     }
+  }
+
+  if (!comments) {
+    return <div>Loading...</div>
   }
 
   // TODO: Set a key for each card by redesigning the database models
@@ -39,6 +50,8 @@ export default function Post() {
       <div className="post-body">
         {post.content}
       </div>
+      <div className="comments-section">
+      <h4>{comments.length} Comments</h4>
       {loggedIn ? (
         <div className="uplaod-comment">
           <form>
@@ -56,6 +69,7 @@ export default function Post() {
             <Comment content={comment.content} name={comment.name} />
           )
         })} 
+      </div>
       </div>
     </main>
   )

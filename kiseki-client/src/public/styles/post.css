@@ -3,17 +3,21 @@ a {
   color: black;
 }
 
+.posts-list > h4 {
+  align-self: start;
+}
+
 .posts-list {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2em 1em;
+  padding: 2em 0;
+  min-width: 780px;
 }
 
 .post-card {
-  width: calc(100vw - 20%);
-  padding: .2em 1.2em;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,12 +26,87 @@ a {
   padding: 1.2em;
 }
 
-.post-header {
-  font-size: 1.5em;
-  font-family: monospace;
+.post-card > a > h3 {
+  font-size: 1.7em;
+  color: #C4631A;
+  margin: 0;
+}
+
+.post-extra {
+  padding: .4em 0;
 }
 
 .post-extra > span {
   font-size: 1em;
   max-width: fit-content;
+}
+
+.post-page {
+  margin: 1.5em 0;
+  width: 780px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.6em;
+  padding: 1.2em;
+  box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+}
+
+.post-page > h3 {
+  font-size: 2em;
+  margin: .3em;
+  text-decoration: underline;
+}
+
+.post-body {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  height: calc(100vh - 20%);
+  font-size: 1.2em;
+}
+
+.comments-section {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.comments-section > h4 {
+  margin: 6px; 
+  font-size: 1.2em;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form > input {
+  padding: .2em 1.2em .2em .7em;
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 1.2em;
+}
+
+.post-comments {
+  display: flex;
+  flex-direction: column;
+  gap: .6em;
+  width: 360px;
+}
+
+.comment-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .4em;
+  border-radius: 12px; 
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
+  font-size: 1.2em;
 }

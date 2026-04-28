@@ -7,15 +7,18 @@ export default function Posts() {
 
   return (
     <main className="posts-list">
+      <h4>Recent Posts</h4>
       {posts && posts.map((post) => {
         return (
-          <div className="post-card" key={post.id}>
-            <div className="post-header"><Link to={`/posts/${post.id}`}><h3>{post.title}</h3></Link></div>
-            <div className="post-extra">
-              <span>{new Date(post.uploadedAt).toLocaleDateString(undefined,
-                {month: "long", day: "numeric"})}</span>
+            <div className="post-card" key={post.id}>
+              <Link to={`/posts/${post.id}`}>
+                <h3>{post.title}</h3>
+                <div className="post-extra">
+                  <span>{new Date(post.uploadedAt).toLocaleDateString(undefined,
+                    {month: "long", day: "numeric"})}</span>
+                </div>
+              </Link>
             </div>
-          </div>
         )
       })}
     </main>
