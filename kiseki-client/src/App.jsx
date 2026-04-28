@@ -3,6 +3,7 @@ import { Outlet } from 'react-router'
 
 import Nav from './components/Nav.jsx'
 import Posts from './components/Posts.jsx'
+import './public/index.css'
 
 export default function App() {
   const API = import.meta.env.VITE_BASE_API_URL

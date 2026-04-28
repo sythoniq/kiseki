@@ -1,0 +1,27 @@
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5em;
+  border-bottom: 1px solid;
+}
+
+.options {
+  display: flex;
+  gap: 1.2em;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  padding: .2em .5em;
+  font-size: 1.2em;
+  font-family: monospace, sans-serif;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #C4631A;
+}
+

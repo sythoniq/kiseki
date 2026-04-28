@@ -10,8 +10,11 @@ export default function Posts() {
       {posts && posts.map((post) => {
         return (
           <div className="post-card" key={post.id}>
-            <Link to={`/posts/${post.id}`}><h3>{post.title}</h3></Link>
-            <span>{new Date(post.uploadedAt).toDateString()}</span>
+            <div className="post-header"><Link to={`/posts/${post.id}`}><h3>{post.title}</h3></Link></div>
+            <div className="post-extra">
+              <span>{new Date(post.uploadedAt).toLocaleDateString(undefined,
+                {month: "long", day: "numeric"})}</span>
+            </div>
           </div>
         )
       })}
