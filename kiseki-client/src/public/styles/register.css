@@ -1,0 +1,15 @@
+.register-page {
+  display: flex;
+  flex-direction: column;
+  width: 480px;
+  gap: 7.5em;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+  color: #C6431A;
+}
+
+.register-for

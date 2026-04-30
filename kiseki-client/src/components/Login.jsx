@@ -30,7 +30,7 @@ export default function Login() {
   }
 
   return (
-    <>
+    <main className="login-page">
       <Link to="/"><div className="home-btn"><button>Home</button></div></Link>
       <form className="login-form">
         <h2>Log In</h2>
@@ -41,6 +41,6 @@ export default function Login() {
 
         <button onClick={handleLogin}>Login</button>
       </form>
-    </>
+    </main>
   )
 }

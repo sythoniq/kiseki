@@ -28,10 +28,10 @@ export default function Register() {
   }
 
   return (
-    <>
+    <main className="register-page">
       <Link to="/"><div className="home-btn"><button>Home</button></div></Link>
       <form className="register-form">
-        <h2>Register</h2>
+        <h2>Sign Up</h2>
         <label htmlFor="username"></label>
         <input type="text" name="username" id="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)}/>
         <label htmlFor="password"></label>
@@ -39,6 +39,6 @@ export default function Register() {
 
         <button onClick={handleRegister}>Register</button>
       </form>
-    </>
+    </main>
   )
 }
