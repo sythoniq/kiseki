@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react'
 import { useLoaderData, Outlet } from 'react-router'
 
 import Header from './components/Header.jsx'
-import Post from './components/Post.jsx'
 
 function App() {
   const API = import.meta.env.VITE_BASE_API_URL
   const [loggedIn, setLoggedIn] = useState(false)
-  const posts = useLoaderData()
   
   useEffect(() => {
     async function authorize() {
@@ -21,6 +19,7 @@ function App() {
           }
         });   
         const data = await result.json()
+        console.log(data);
         if (data.success) {
           return setLoggedIn(true)
         } else {
@@ -31,21 +30,13 @@ function App() {
       }
     }
    
-    return () => {
-      authorize()
-    }
+    authorize()
   }, [API])
-
+ 
   return (
     <>
       <Header authorized={loggedIn}/>
-      <main className="main-content">
-        {posts && posts.map((post) => {
-          return (
-            <Post key={post.id} title={post.title} uploadedAt={post.uploadedAt} published={post.published} />
-          )
-        })} 
-      </main>
+      <Outlet />
     </>
   )
 }

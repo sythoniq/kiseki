@@ -1,5 +1,6 @@
 import App from '../App.jsx'
 import Form from '../components/Form.jsx'
+import Home from '../components/Home.jsx'
 
 const API = import.meta.env.VITE_BASE_API_URL;
 
@@ -17,7 +18,13 @@ const routes = [
 {
   path: "/",
   element: <App />,
-  loader: loadPosts
+  children: [
+  {
+    index: true,
+    element: <Home />,
+    loader: loadPosts
+  } 
+]
 },
 {
   path: "/login",
