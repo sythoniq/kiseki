@@ -48,12 +48,12 @@ async function validateAuthor(req, res, next) {
       where: { id: Number(req.body.authorid) }
     })
     if (user.author) {
-      next()
+      res.json({success: true, msg: "Author", user})
     } else {
       throw(new Error("Unauthorized to post"))
     }
   } catch(err) {
-    return res.status(401).json({success: false, msg: "Unauthorized to make posts", err})
+    return res.json({success: false, msg: "Unauthorized to make posts", err})
   }
 }
 
