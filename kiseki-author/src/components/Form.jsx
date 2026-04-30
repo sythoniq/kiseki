@@ -7,12 +7,21 @@ export default function Form(props) {
   async function handleLogin(e) {
     const res = await fetch(API+'/login');
     const data = await res.json() 
+    if (data.success) {
+      navigate("/");
+    } else {
+      throw new Error("Login failed");
+    }
   }
 
   async function handleRegister(e) {
     const res = await fetch(API+'/login');
     const data = await res.json()
-    console.log(data);    
+    if (data.success) {
+      navigate("/login")
+    } else {
+      throw new Error("Register failed")
+    }
   }
 
   return (
