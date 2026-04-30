@@ -43,14 +43,16 @@ async function validateUser(req, res, next) {
 }
 
 async function validateAuthor(req, res, next) {
-  try {
+  try { 
     const user = await prisma.user.findUnique({
-      where: { id: Number(req.body.authorid) }
-    })
+      where: {
+        id: Number(req.user.id)
+      }
+    });
     if (user.author) {
-      res.json({success: true, msg: "Author", user})
+      return res.josn({success: true, msg: "Authorized to make posts"})
     } else {
-      throw(new Error("Unauthorized to post"))
+      throw new Error("Unauthorized")
     }
   } catch(err) {
     return res.json({success: false, msg: "Unauthorized to make posts", err})
