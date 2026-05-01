@@ -19,7 +19,6 @@ function App() {
           }
         });   
         const data = await result.json()
-        console.log(data);
         if (data.success) {
           return setLoggedIn(true)
         } else {

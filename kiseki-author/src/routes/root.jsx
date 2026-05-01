@@ -2,6 +2,8 @@ import App from '../App.jsx'
 import Form from '../components/Form.jsx'
 import Home from '../components/Home.jsx'
 
+import HomeSkeleton from '../components/HomeSkeleton.jsx'
+
 const API = import.meta.env.VITE_BASE_API_URL;
 
 async function loadPosts() {
@@ -22,7 +24,8 @@ const routes = [
   {
     index: true,
     element: <Home />,
-    loader: loadPosts
+    loader: loadPosts,
+    HydrateFallback: HomeSkeleton
   } 
 ]
 },

@@ -5,6 +5,7 @@ import Post from './Post.jsx'
 
 export default function Home() {
   const loadedPosts = useLoaderData()
+  console.log(loadedPosts);
 
   const publishedPosts = loadedPosts.filter((post) => post.published === true)
   const unpublishedPosts = loadedPosts.filter((post) => post.published === false)
