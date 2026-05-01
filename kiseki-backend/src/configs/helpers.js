@@ -22,14 +22,13 @@ async function checkUsername(username) { // Check username availability
 async function validateUser(req, res, next) {
   const token = req.headers['authorization']
   try {
-    const result = jwt.verify(token, process.env.SECRET)
-    
+    const result = jwt.verify(token, process.env.SECRET) 
     if (result) {
       const user = await prisma.user.findUnique({
         where: {id: Number(result.userid)}
       })   
       if (user) {
-        req.user = {id: user.id, name: user.name};
+        req.user = user;
         next();
       } else {
         throw(new Error("User not found"))
@@ -49,8 +48,8 @@ async function validateAuthor(req, res, next) {
         id: Number(req.user.id)
       }
     });
-    if (user.author) {
-      return res.josn({success: true, msg: "Authorized to make posts"})
+    if (user.author == true) {
+      return res.json({success: true, msg: "Authorized to make posts"})
     } else {
       throw new Error("Unauthorized")
     }
