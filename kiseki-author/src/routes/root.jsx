@@ -1,0 +1,63 @@
+import App from '../App.jsx'
+import Home from '../components/Home.jsx'
+import Login from '../components/Login.jsx'
+import Register from '../components/Register.jsx'
+import Page from '../components/PostPage.jsx'
+
+
+const API = import.meta.env.VITE_BASE_API_URL
+
+async function loadPosts() {
+  const res = await fetch(API+'/posts') 
+  const data = await res.json()
+  return data.posts
+}
+
+async function postLoader(postId) {
+  const res = await fetch(API+`/posts/${postId}`) 
+  const data = await res.json()
+  if (data.success) {
+    return data.post;
+  } else {
+    throw new Error("Database error", { status: 404 })
+  }
+}
+
+async function getPostComments(postId) {
+  const res = await fetch(API+`/posts/${postId}/comments`)
+  const data = await res.json()
+  if (data.success) {
+    return data.comments
+  } else {
+    throw new Error("Database error", { status: 404 })
+  }
+}
+
+async function fullyLoadPost({params}) {
+  const [ post, postComments ] = await Promise.all([
+    postLoader(params.postId),
+    getPostComments(params.postId)
+  ])
+  return { post, postComments }
+}
+
+const routes = [
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      { index: true, element: <Home />, loader: loadPosts },
+      { path: "/posts/:postId", element: <Page />, loader: fullyLoadPost }
+    ]
+  },
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
+    path: "/register",
+    element: <Register />
+  }
+]
+
+export default routes;
