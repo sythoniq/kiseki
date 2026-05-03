@@ -38,7 +38,7 @@ async function uploadPost(req, res, next) {
       data: {
         title: req.body.title,
         content: req.body.content,
-        authorId: Number(req.body.authorid)
+        authorId: Number(req.user.id)
       }
     })
     return res.json({success: true, msg: "Post uploaded", post})
