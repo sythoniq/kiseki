@@ -49,7 +49,7 @@ async function validateAuthor(req, res, next) {
       }
     });
     if (user.author == true) {
-      return res.json({success: true, msg: "Authorized to make posts"})
+      next()
     } else {
       throw new Error("Unauthorized")
     }

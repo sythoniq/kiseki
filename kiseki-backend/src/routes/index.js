@@ -10,6 +10,9 @@ index.post("/auth", auth.validateUser, (req, res) => {
   const user = req.user;
   res.json({success: true, msg: "User authrorized", user})
 })
-index.post("/author", auth.validateUser, auth.validateAuthor)
+index.post("/author", auth.validateUser, auth.validateAuthor, (req, res) => {
+  const user = req.user;
+  res.json({success: true, msg: "Author authorized", user});
+})
 
 module.exports = index
