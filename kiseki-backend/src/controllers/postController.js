@@ -114,11 +114,11 @@ async function updatePost(req, res, next) {
       }
     })
     if (post) {
-      await prisma.post.update({
+      const post = await prisma.post.update({
         where: { id: Number(req.params.postId ) },
         data: { title: req.body.title, content: req.body.content}
       })
-      return res.json({success: true, msg: "Post updated"})
+      return res.json({success: true, msg: "Post updated", post})
     } else {
       throw new Error("Post not found")
     }
