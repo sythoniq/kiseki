@@ -4,7 +4,6 @@ import Post from './Post.jsx'
 
 export default function Home() {
   const posts = useLoaderData() 
-  console.log(posts);
 
   return (
     <main className="posts-list">
