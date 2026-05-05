@@ -14,7 +14,10 @@ export default function Page(prop) {
 
   function editForm() {
     const form = document.querySelector(".edit-form") 
-    form.style.display = "flex";
+    if (form.style.display == "flex") {
+      return form.style.display = "none";
+    }
+    form.style.display = "flex"
     setTitle(post.title)
     setBody(post.content)
   }
@@ -45,6 +48,7 @@ export default function Page(prop) {
       <div className="post-body">{post.content}</div>
       <button className="edit-post" onClick={editForm}>Edit</button>
       <div className="post-comments">
+        <span>Comments </span>
         {postComments && postComments.map((comment) => {
           return (
             <Comment body={comment.content} name={comment.name} />
