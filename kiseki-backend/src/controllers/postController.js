@@ -64,6 +64,7 @@ async function postComment(req, res, next) {
 
 async function deletePost(req, res, next) {
   try {
+    console.log(req.params)
     const post = await prisma.post.findUnique({
       where: {
         id: Number(req.params.postId)
@@ -72,7 +73,7 @@ async function deletePost(req, res, next) {
     if (post) {
       await prisma.post.delete({
         where: {
-          id: Number(req.params.postid)
+          id: Number(req.params.postId)
         }
       })
       return res.json({success: true, msg: "Post deleted successfully"})
@@ -80,6 +81,7 @@ async function deletePost(req, res, next) {
       throw new Error("Post doesnt exist")
     }
   } catch(err) {
+    console.log(err)
     return res.json({success: false, msg: err});
   }
 }
