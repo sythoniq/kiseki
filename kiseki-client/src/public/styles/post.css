@@ -13,7 +13,8 @@ a {
   justify-content: center;
   align-items: center;
   padding: 2em 0;
-  min-width: 780px;
+  width: 780px;
+  gap: 1em;
 }
 
 .post-card {
