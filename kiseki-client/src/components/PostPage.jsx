@@ -11,10 +11,8 @@ export default function Post() {
   const { post, postComments } = useLoaderData()
   
   useEffect(() => {
-    return () => {
       setComments(postComments);
-    }
-  }, [postComments])
+  }, [API])
 
   async function postComment(e) {
     e.preventDefault()
@@ -32,7 +30,6 @@ export default function Post() {
     const data = await result.json()
     if (data.success) {
       setComments([...comments, data.comment])
-      console.log(comments, data.comment)
     } else {
       throw new Error("Databaase error", data.err)
     }
