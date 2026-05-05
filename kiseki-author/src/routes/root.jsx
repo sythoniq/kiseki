@@ -4,6 +4,7 @@ import Login from '../components/Login.jsx'
 import Register from '../components/Register.jsx'
 import Page from '../components/PostPage.jsx'
 import Loading from '../components/Loading.jsx'
+import Create from '../components/Create.jsx'
 
 
 const API = import.meta.env.VITE_BASE_API_URL
@@ -50,7 +51,8 @@ const routes = [
     children: [
       { index: true, element: <Home />, loader: loadPosts },
       { path: "/posts/:postId", element: <Page />, loader: fullyLoadPost,
-hydrateFallbackElement: <Loading /> }
+hydrateFallbackElement: <Loading /> },
+      { path: "/create", element: <Create />}
     ]
   },
   {

@@ -45,15 +45,15 @@ export default function Header() {
     <nav className="header-nav">
       <Link to="/"><button>Kiseki</button></Link>
       {loggedIn ? (
-        <>
+        <div className="header-options">
         <Link to="/create"><button>New Post</button></Link>
-        <button onClick={logout}>Logout</button>
-        </>
+        <button onClick={logout} style={{cursor: "pointer", background: "none", fontSize: "1.4em", fontWeight: "600", border: "none", borderRadius: "12px", padding: "0 .5em"}}>Logout</button>
+        </div>
       ) : (
-        <>
+        <div className="header-options">
         <Link to="/register"><button>Register</button></Link>
         <Link to="/login"><button>Login</button></Link>
-        </>
+        </div>
       )}
     </nav>
   )

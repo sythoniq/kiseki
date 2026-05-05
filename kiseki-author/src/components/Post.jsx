@@ -56,6 +56,7 @@ export default function Post(prop) {
     if (data.success) {
       navigate("/")
     } else {
+      console.log(data)
       throw new Error("Unexpected error occurred...");
     }
   }
@@ -66,7 +67,7 @@ export default function Post(prop) {
         <h2>{prop.postTitle}</h2>
       </Link>
       <div className="post-details">
-        <span>{new Date(prop.date).toLocaleDateString(undefined, {month: "long", day: "numeric"})}</span>
+        <span>Uploaded At: {new Date(prop.date).toLocaleDateString(undefined, {month: "long", day: "numeric"})}</span>
         {prop.published ? (
           <button className="unpublish-btn" onClick={unpublishPost}>Unpublish</button>
         ) : (
