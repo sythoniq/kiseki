@@ -234,3 +234,25 @@ body {
   border-radius: 12px;
   padding: .2em 1.2em;
 }
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  justify-content: center;
+  align-items: center;
+  gap: 3em;
+}
+
+.login-form > a {
+  align-self: start;
+}
+
+.login-form > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2em;
+  width: 320px;
+}

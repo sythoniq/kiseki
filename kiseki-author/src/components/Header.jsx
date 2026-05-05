@@ -51,7 +51,6 @@ export default function Header() {
         </div>
       ) : (
         <div className="header-options">
-        <Link to="/register"><button>Register</button></Link>
         <Link to="/login"><button>Login</button></Link>
         </div>
       )}

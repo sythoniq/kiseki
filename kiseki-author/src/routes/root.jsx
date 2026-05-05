@@ -1,7 +1,6 @@
 import App from '../App.jsx'
 import Home from '../components/Home.jsx'
 import Login from '../components/Login.jsx'
-import Register from '../components/Register.jsx'
 import Page from '../components/PostPage.jsx'
 import Loading from '../components/Loading.jsx'
 import Create from '../components/Create.jsx'
@@ -58,10 +57,6 @@ hydrateFallbackElement: <Loading /> },
   {
     path: "/login",
     element: <Login />
-  },
-  {
-    path: "/register",
-    element: <Register />
   }
 ]
 
