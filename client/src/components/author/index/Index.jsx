@@ -25,6 +25,11 @@ export default function Index() {
 			<Link to={`/author/posts/${post.post_id}`}><h2>{post.post_title}</h2></Link>
 			<div className={styles.postDate}>{new Date(post.uploadedAt).toLocaleDateString(undefined, {year: "numeric", month: "long", day: "numeric"})}</div>
 			<div className={styles.categoryTag}>{post.post_category}</div>
+			{post.published ? (
+				<div className={styles.published}>Published</div>
+			) : (
+				<div className={styles.unpublished}>Not Published</div>
+			)}
 		</section>
 	)
 
