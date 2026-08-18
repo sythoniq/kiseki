@@ -2,34 +2,71 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs')
 const prisma = require('../configs/prisma.js')
 
-const checkUsername = require('../configs/helpers.js').checkUsername;
+async function handleRegister(req, res, next) {
+	try {
+		if (!req.body) {
+			return res.status(404).json({success: false, message: "Missing data!"})
+		}
+
+		const { username, password } = req.body
+		const user = await prisma.user.findUnique({
+			where: {
+				user_name: username
+			}
+		})
+
+		if (user) {
+			return res.status(401).json({success: false, message: "User already exists"})
+		}
+
+		const hash = await bcrypt.hash(password, 10)
+		const newUser = await prisma.user.create({
+			data: {
+				user_name: username
+				user_hash: hash
+			}
+		})
+		if (!newUser) {
+			return res.status(500).json({success: false, message: "Unexpected error"})
+		}
+
+		return res.status(200).json({success: true, message: "User created"})
+	} catch(e) {
+		return res.status(500).json({success: false, message: "Unexpected error", error: e.message})
+	}
+}
 
 async function handleLogin(req, res, next) {
-  try {
-    const { username, password } = req.body
+	try {
+		if (!req.body) {
+			return res.status(404).json({success: false, message: "Missing data!"})
+		}
 
-    const user = await prisma.user.findUnique({
-      where: {
-        name: username, 
-      }
-    }) 
+		const { username, password } = req.body;
+		const user = await prisma.user.findUnique({
+			where: {
+				user_name: username
+			}
+		})
 
-    if (user) {
-      const result = await bcrypt.compare(password, user.hash)
-      if (result) {
-        const token = jwt.sign({userid: user.id}, process.env.SECRET, {expiresIn: '7d'});
-        return res.json({success: true, msg: "User logged in", token});
-      } else {
-        throw(new Error("User not logged in, incorrect password"))
-      }
-    } else {
-      throw(new Error("User not found"))  
-    }
-  } catch(err) {
-    return res.json({success: false, msg: "Login failed", err})
-  }
+		if (!user) {
+			return res.status(404).json({success: false, message: "User not found"})
+		}
+		
+		const result = await bcrypt.compare(password, user.user_hash)
+		if (!result) {
+			return res.status(401).json({success: false, message: "Incorrect password"})
+		}
+
+		const token = jwt.sign({userid: user.user_id, iat: Date.now()}, process.env.JWT_SECRET, {expiresIn: '7d'});
+
+		return res.status(200).json({success: true, message: "Login successful", token})
+	}	catch(e) {
+		return res.status(500).json({success: false, message: "Unexpected Error", error: e.message})
+	}
 }
 
 module.exports = {
+	handleRegister,
   handleLogin
 }

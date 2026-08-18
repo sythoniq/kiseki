@@ -2,20 +2,21 @@ const { Router } = require("express")
 const posts = Router()
 
 const controller = require("../controllers/postController.js")
-const auth = require("../configs/helpers.js")
+
+// Removed the auth middleware to use a global user object that is verified at each request
 
 posts.get("/", controller.getPosts)
 posts.get("/:postId", controller.getPost)
 posts.get("/:postId/comments", controller.getPostComments)
 
-posts.post("/upload", auth.validateUser, auth.validateAuthor, controller.uploadPost)
+posts.post("/upload", controller.uploadPost)
 
-posts.post("/:postId/update", auth.validateUser, auth.validateAuthor, controller.updatePost)
-posts.post("/:postId/comment", auth.validateUser, controller.postComment)
-posts.post("/:postId/delete", auth.validateUser, auth.validateAuthor, controller.deletePost)
-posts.post("/:postId/publish", auth.validateUser, auth.validateAuthor, controller.publishPost)
-posts.post("/:postId/unpublish", auth.validateUser, auth.validateAuthor, controller.unpublishPost);
+posts.post("/:postId/update", controller.updatePost)
+posts.post("/:postId/comment", controller.postComment)
+posts.post("/:postId/delete", controller.deletePost)
+posts.post("/:postId/publish", controller.publishPost)
+posts.post("/:postId/unpublish", controller.unpublishPost);
 
-posts.post("/:postId/comment/:commentId", auth.validateUser, auth.validateAuthor, controller.deletePostComment)
+posts.post("/:postId/comment/:commentId", controller.deletePostComment)
 
 module.exports = posts
