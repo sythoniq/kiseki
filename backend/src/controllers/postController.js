@@ -28,7 +28,7 @@ async function getPostComments(req, res, next) {
 		const postId = Number(req.params.postId)
     const comments = await prisma.$queryRaw`
       SELECT comment_content, "User".user_name FROM "Comment" INNER JOIN "User" ON
-      "Comment"."author_id"="User"."user_id" WHERE "Post".post_id = ${postId};
+      "Comment"."author_id"="User"."user_id" WHERE "Comment".post_id = ${postId};
     `;
     return res.status(200).json({success: true, comments})
   } catch(err) {
@@ -119,7 +119,7 @@ async function deletePost(req, res, next) {
 			return res.status(404).json({success: false, message: "Post not found"})
 		}
 
-		if (!user.author && user.user_id != post.author_id) {
+		if (user.user_id != post.author_id) {
 			return res.status(401).json({success: false, message: "Unauthorized!"})
 		}
 
@@ -192,7 +192,7 @@ async function updatePost(req, res, next) {
       }
     })
 
-		if (!user.author && user.user_id != post.author_id) {
+		if (user.user_id != post.author_id) {
 			return res.status(401).json({success: false, message: "Unauthorized!"})
 		}
 
