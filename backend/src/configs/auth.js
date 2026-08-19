@@ -1,6 +1,8 @@
 const prisma = require("./prisma.js")
 const jwt = require("jsonwebtoken")
 
+// Note: If possible it would be helpful to stick most of the user object as found in the datbase to the req user object... idk if thats wise or not but it would help with redundancy...!
+
 module.exports = ((req, res, next) => {
 	try {
 		if (!req.headers["authorization"]) {

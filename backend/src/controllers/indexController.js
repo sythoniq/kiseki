@@ -10,9 +10,7 @@ async function handleRegister(req, res, next) {
 
 		const { username, password } = req.body
 		const user = await prisma.user.findUnique({
-			where: {
-				user_name: username
-			}
+			where: { user_name: username }
 		})
 
 		if (user) {
@@ -22,7 +20,7 @@ async function handleRegister(req, res, next) {
 		const hash = await bcrypt.hash(password, 10)
 		const newUser = await prisma.user.create({
 			data: {
-				user_name: username
+				user_name: username,
 				user_hash: hash
 			}
 		})
@@ -32,6 +30,7 @@ async function handleRegister(req, res, next) {
 
 		return res.status(200).json({success: true, message: "User created"})
 	} catch(e) {
+		console.log(e)
 		return res.status(500).json({success: false, message: "Unexpected error", error: e.message})
 	}
 }
@@ -60,7 +59,7 @@ async function handleLogin(req, res, next) {
 
 		const token = jwt.sign({userid: user.user_id, iat: Date.now()}, process.env.JWT_SECRET, {expiresIn: '7d'});
 
-		return res.status(200).json({success: true, message: "Login successful", token})
+		return res.status(200).json({success: true, message: "Login successful", token: `Bearer ${token}`})
 	}	catch(e) {
 		return res.status(500).json({success: false, message: "Unexpected Error", error: e.message})
 	}

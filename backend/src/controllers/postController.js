@@ -3,173 +3,297 @@ const prisma = require("../configs/prisma.js")
 async function getPosts(req, res, next) {
   try {
     const posts = await prisma.post.findMany({})
-    res.json({success: true, posts})
+		return res.status(200).json({success: true, posts});
   } catch(err) {
-    res.json({success: false, err})
+    return res.status(500).json({success: false, message: "Unexpected Error", e: err.message})
   } 
 }
   
 async function getPost(req, res, next) {
   try {
+		if (!req.params.postId) {
+			return res.status(404).json({success: false, message: "Post Id not provided"})
+		}
     const post = await prisma.post.findUnique({
-      where: { id: Number(req.params.postId) }
+      where: { post_id: Number(req.params.postId) }
     })
-    res.json({success: true, post})
+    return res.status(200).json({success: true, post})
   } catch(err) {
-    console.error(err);
-    res.json({success: false, err})
+    return res.status(500).json({success: false, err})
   }
 }
 
 async function getPostComments(req, res, next) {
   try {
     const comments = await prisma.$queryRaw`
-      SELECT content, "User".name FROM "Comment" INNER JOIN "User" ON
-      "Comment"."authorId"="User"."id";
+      SELECT comment_content, "User".user_name FROM "Comment" INNER JOIN "User" ON
+      "Comment"."author_id"="User"."user_id";
     `;
-    res.json({success: true, comments})
+    return res.status(200).json({success: true, comments})
   } catch(err) {
-    res.json({success: false, err})
+    return res.status(500).json({success: false, message: "Server error", e: err.message})
   }
 }
+
 async function uploadPost(req, res, next) {
   try {
+		if (!req.body.title || !req.body.content) {
+			return res.status(400).json({success: false, message: "Data missing!"})
+		}
+
+		if (!req.user) {
+			return res.status(401).json({success: false, message: "Unauthorized"})
+		}
+
+		const user = await prisma.user.findUnique({
+			where: {
+				user_id: req.user.userid
+			}
+		})
+
+		if (!user.author) {
+			return res.status(401).json({success: false, message: "Unauthorized"})
+		}
+
     const post = await prisma.post.create({
       data: {
-        title: req.body.title,
-        content: req.body.content,
-        authorId: Number(req.user.id)
+        post_title: req.body.title,
+        post_content: req.body.content,
+        author_id: Number(req.user.userid)
       }
     })
-    return res.json({success: true, msg: "Post uploaded", post})
+		
+    return res.status(200).json({success: true, message: "Post uploaded", post})
   } catch(err) {
-    return res.json({success: false, err})
+    return res.status(500).json({success: false, message: "Server error", e: err.message})
   }
 }
 async function postComment(req, res, next) { 
   try {
+		if (!req.body.content) {
+			return res.status(400).json({success: false, message: "Missing data!"})
+		}
+
+		if (!req.user) {
+			return res.status(401).json({success: false, message: "Unauthorized"})
+		}
+
     const comment = await prisma.comment.create({
       data: {
         content: req.body.content,
-        authorId: Number(req.user.id),
-        postId: Number(req.params.postId) 
+        author_id: Number(req.user.userid),
+        post_id: Number(req.params.postId) 
       }
     }) 
-    res.json({success: true, msg: "Comment posted successfully", comment})
+
+    return res.status(200).json({success: true, msg: "Comment posted successfully", comment})
   } catch(err) {
-    console.log(err);
-    res.json({success: false, msg: "Comment not posted", err}); 
+    return res.status(500).json({success: false, msg: "Comment not posted", e: err.message}); 
   } 
 }
 
 async function deletePost(req, res, next) {
   try {
-    console.log(req.params)
+		if (!req.user) {
+			return res.status(401).json({success: false, message: "Unauthorized!"});
+		}
+
+		const user = await prisma.user.findUnique({
+			where: {
+				user_id: Number(req.user.userid)
+			}
+		})
+
+		if(!user) {
+			return res.status(401).json({success: false, message: "Unauthorized"})
+		}
+		
     const post = await prisma.post.findUnique({
       where: {
-        id: Number(req.params.postId)
+        post_id: Number(req.params.postId)
       }
     })
-    if (post) {
-      await prisma.post.delete({
-        where: {
-          id: Number(req.params.postId)
-        }
-      })
-      return res.json({success: true, msg: "Post deleted successfully"})
-    } else {
-      throw new Error("Post doesnt exist")
-    }
+		if (!post) {
+			return res.status(404).json({success: false, message: "Post not found"})
+		}
+
+		const delPost = await prisma.post.delete({
+			where: {
+				post_id: Number(req.params.postId)
+			}
+		})
+		// Checking what exactly prisma returns when delete is called
+		console.log(delPost)
+		return res.status(200).json({success: true, message: "Post deleted!"})
   } catch(err) {
-    console.log(err)
-    return res.json({success: false, msg: err});
+    return res.status(500).json({success: false, message: "Server error", e: err.message});
   }
 }
 
 async function deletePostComment(req, res, next) {
   try {
+		if (!req.user) {
+			return res.status(401).json({success: false, message: "Unauthorized!"})
+		}
+
+		const user = await prisma.user.findUnique({
+			where: {
+				user_id: Number(req.user.userid)
+			}
+		})
+
     const comment = await prisma.comment.findUnique({
       where: {
-        id: Number(req.params.commentId)
+        comment_id: Number(req.params.commentId)
       }
     });
-    if (comment) {
-      await prisma.comment.delete({
-        where: {
-          id: Number(req.params.commentId)
-        }
-      }) 
-      return res.json({success: true, msg: "Comment deleted"})
-    } else {
-      throw new Error("Comment not found")
-    }
+
+		if (!comment) {
+			return res.statsu(404).json({success: false, message: "Comment not found!"})
+		}
+
+		if (comment.author_id != req.user.userid || !user.admin) {
+			return res.status(401).json({success: false, message: "Unauthorized!"})
+		}
+
+		const delComment = await prisma.comment.delete({
+			where: {
+				comment_id: Number(req.params.commentId)
+			}
+		})
+
+		return res.status(200).json({success: true, message: "Comment deleted!"})
   } catch (err) {
-    return res.json({success: false, msg: err}) 
+    return res.json({success: false, message: "Server error", e: err.message}) 
   }
 }
 
 async function updatePost(req, res, next) {
   try {
+		if (!req.user) {
+			return res.status(401).json({success: false, message: "Unauthorized!"})
+		}
+
+		const user = await prisma.user.findUnique({
+			where: {
+				user_id: Number(req.user.userid)
+			}
+		})
+
+		if (!user.author) {
+			return res.status(401).json({success: false, message: "Unauthorized!"})
+		}
+
     const post = await prisma.post.findUnique({
       where: {
-        id: Number(req.params.postId)
+        post_id: Number(req.params.postId)
       }
     })
-    if (post) {
-      const post = await prisma.post.update({
-        where: { id: Number(req.params.postId ) },
-        data: { title: req.body.title, content: req.body.content}
-      })
-      return res.json({success: true, msg: "Post updated", post})
-    } else {
-      throw new Error("Post not found")
-    }
+
+		if (!post) {
+			return res.status(404).json({success: false, message: "Post not found!"})
+		}
+
+		// Not fully sensible way to do the post update fully relying on the client to provide everything so the frontend should always make sure i provide both title and content.... TT
+		
+		const updatePost = await prisma.post.update({
+			where: { post_id: Number(req.params.postId) },
+			data: { post_title: req.body.title, post_content: req.body.content}
+		})
+		return res.status(200).json({success: true, message: "Post updated", updatePost})
   } catch(err) {
-    console.log(err);
-    return res.json({success: false, msg: err}) 
+    return res.status(500).json({success: false, message: "Server error", e: err.message}) 
   }
 }
 
 async function publishPost(req, res, next) {
-  try {
-    const post = await prisma.post.findUnique({
-      where: {
-        id: Number(req.params.postId)
-      }
-    })
-    if (post) {
-      await prisma.post.update({
-        where: { id: Number(req.params.postId) },
-        data: { published: true }
-      })
-      return res.json({success: true, msg: "Post published"})
-    } else {
-      throw new Error("Post not found")
-    }
-  } catch(err) {
-    return res.json({success: false, msg: err})
-  }
+	try {
+		if (!req.user) {
+			return res.status(401).json({success: false, message: "Unauthorized!"})
+		}
+
+		const user = await prisma.user.findUnique({
+			where: {
+				user_id: Number(req.user.userid)
+			}
+		})
+
+		if (!user.author) {
+			return res.status(401).json({success: false, message: "Unauthorized!"})
+		}
+
+		const post = await prisma.post.findUnique({
+			where: {
+				id: Number(req.params.postId)
+			}
+		})
+
+		if (!post) {
+			return res.status(404).json({success: false, message: "Post not found!"})
+		}
+
+		if (post.author_id != user.user_id) {
+			return res.status(401).json({success: false, message: "Unauthorized!"})
+		}
+
+		if (post.published) {
+			return;
+		}
+
+		const publishPost = await prisma.post.update({
+			where: { post_id: Number(req.params.postId) },
+			data: { published: true }
+		});
+		return res.status(200).json({success: true, message: "Post published!"})
+
+	} catch(err) {
+		return res.status(500).json({success: false, message: "Server error", e: err.message})
+	}
 }
 
 async function unpublishPost(req, res, next) {
-  try {
-    const post = await prisma.post.findUnique({
-      where: {
-        id: Number(req.params.postId)
-      }
-    }) 
-    if (post) {
-      await prisma.post.update({
-        where: { id: Number(req.params.postId) },
-        data: { published: false }
-      }) 
-      return res.json({success: true, msg: "Unpublished post"})
-    } else {
-      throw new Error("Post not found")
-    }
-  } catch(err) {
-    return res.json({success: false, msg: err})
-  }
+	try {
+		if (!req.user) {
+			return res.status(401).json({success: false, message: "Unauthorized!"})
+		}
+
+		const user = await prisma.user.findUnique({
+			where: {
+				user_id: Number(req.user.userid)
+			}
+		})
+
+		if (!user.author) {
+			return res.status(401).json({success: false, message: "Unauthorized!"})
+		}
+
+		const post = await prisma.post.findUnique({
+			where: {
+				id: Number(req.params.postId)
+			}
+		})
+
+		if (!post) {
+			return res.status(404).json({success: false, message: "Post not found!"})
+		}
+
+		if (post.author_id != user.user_id) {
+			return res.status(401).json({success: false, message: "Unauthorized!"})
+		}
+
+		if (!post.published) {
+			return;
+		}
+
+		const publishPost = await prisma.post.update({
+			where: { post_id: Number(req.params.postId) },
+			data: { published: false }
+		});
+		return res.status(200).json({success: true, message: "Post unpublished!"})
+
+	} catch(err) {
+		return res.status(500).json({success: false, message: "Server error", e: err.message})
+	}
 }
 
 module.exports = {
