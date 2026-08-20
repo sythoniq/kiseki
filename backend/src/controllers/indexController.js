@@ -4,7 +4,7 @@ const prisma = require('../configs/prisma.js')
 
 async function handleRegister(req, res, next) {
 	try {
-		if (!req.body) {
+		if (!req.body.username || !req.body.password) {
 			return res.status(404).json({success: false, message: "Missing data!"})
 		}
 
@@ -37,7 +37,7 @@ async function handleRegister(req, res, next) {
 
 async function handleLogin(req, res, next) {
 	try {
-		if (!req.body) {
+		if (!req.body.username || !req.body.password) {
 			return res.status(404).json({success: false, message: "Missing data!"})
 		}
 

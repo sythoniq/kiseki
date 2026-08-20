@@ -26,6 +26,7 @@ model Post {
   post_id        Int     @id @default(autoincrement()) 
   post_title     String
   post_content   String
+	post_category	 String
   published Boolean @default(false) 
   uploadedAt DateTime @default(now())
   author    User    @relation(fields: [author_id], references: [user_id]) 
