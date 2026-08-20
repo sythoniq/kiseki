@@ -1,0 +1,21 @@
+.sidebar {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	padding: .5em 2.5em;
+	background-color: black;
+	color: white;
+}
+
+.categories {
+	overflow: scroll;
+	max-height: 65%;
+	height: 65%;
+}
+
+.user {
+
+}
