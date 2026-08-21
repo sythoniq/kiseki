@@ -2,6 +2,31 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs')
 const prisma = require('../configs/prisma.js')
 
+async function getUser(req, res, next) {
+	try {
+		if (!req.user) {
+			return res.status(401).json({success: false, message: "No user!"})
+		}	
+
+		const user = await primsa.user.findUnique({
+			where: {
+				user_id: Number(req.user.userid)
+			},
+			omit: {
+				user_hash: true
+			}
+		})
+
+		if (!user) {
+			return res.status(404).json({success: false, message: "User not found!"})
+		}
+
+		return res.status(200).json({success: true, message: "User found", user})
+	} catch(e) {
+		return res.status(500).json({success: false, message: "Server error", error: e.message})
+	}
+}
+
 async function handleRegister(req, res, next) {
 	try {
 		if (!req.body.username || !req.body.password) {
@@ -66,6 +91,7 @@ async function handleLogin(req, res, next) {
 }
 
 module.exports = {
+	getUser,
 	handleRegister,
   handleLogin
 }
