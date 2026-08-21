@@ -1,15 +1,33 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router'
 import styles from './sidebar.module.css'
 
 import useGetPosts from '../../hooks/useGetPosts.js'
 
-export default function Sidebar() {
+export default function Sidebar(props) {
+	const navigate = useNavigate()
 	const [ posts, postCategories, isLoading, isError ] = useGetPosts()
+
+	function handleLogin(e) {
+		e.preventDefault()
+		navigate("/login")
+	}
+
+	function handleLogout(e) {
+		e.preventDefault()
+		const token = localStorage.getItem('jwt-token')
+		if (!token) {
+			return;
+		}
+
+		return localStorage.removeItem('jwt-token');
+	}
+
 	if (isLoading) {
 		return (
 			<>
 				<h1>Kiseki</h1>
-				<p>Random linux fixes and guides storehouse</p>
+				<p>Small time guide and fixes for things that have interested me...</p>
 			</>
 		)
 	}
@@ -32,7 +50,16 @@ export default function Sidebar() {
 				{categList}	
 			</main>
 			<div className={styles.user}>
-				<span>Logout/Login/User details</span>
+				{ props.user ? (
+					<div className={styles.loggedIn}>
+						<span>{props.user.user_name}</span>
+						<span><button onClick={handleLogout}>Logout</button></span>
+					</div>
+				) : (
+						<div className={styles.logIn}>
+							<span><button onClick={handleLogin}>Login</button></span>
+						</div>
+					)}
 			</div>
 		</header>
 	)
