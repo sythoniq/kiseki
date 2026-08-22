@@ -21,12 +21,18 @@ export default function useGetUser() {
 					"Authorization": token
 				}
 			})
-
 			const data = await res.json()
 
 			if (data.success != true) {
-				setError(data.error)
+				setError(data.message)
 				setLoading(false)
+				return;
+			}
+
+			if (data.user == null) {
+				setLoading(false)
+				setError(null)
+				setUser(null)
 				return;
 			}
 

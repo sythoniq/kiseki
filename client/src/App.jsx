@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, Outlet } from 'react-router'
 import './app.css'
 import useGetUser from './hooks/useGetUser.js'
 
@@ -19,6 +19,9 @@ export default function App() {
 		)
 	}
 	return (
-		<Sidebar userObj={user}/>
+		<>
+			<Sidebar userObj={user}/>
+			<Outlet />
+		</>
 	)
 }
