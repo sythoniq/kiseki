@@ -1,0 +1,48 @@
+.registerPage {
+	display: flex;
+	flex-direction: column;
+	gap: 1.2em;
+	align-items: center;
+	margin-top: 5%;
+}
+
+.registerForm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2em;
+	padding: 2.5em;
+	border-radius: 12px;
+}
+
+.registerForm > div {
+	display: flex;
+	flex-direction: column;
+	gap: .2em;
+}
+
+.registerForm > div > input {
+	padding: 0 1.2em 0 .2em;
+	font-size: 1em;
+}
+
+.registerForm > div > label {
+	font-size: 1.2em;
+}
+
+.registerForm > button {
+	width: 75%;
+	padding: .2em;
+	font-size: 1.2rem;
+	background-color: green;
+	color: white;
+	border: .2px solid green;
+	border-radius: 12px;
+	cursor: pointer
+}
+
+.splitLine {
+	border: 1px solid black;
+	width: 50%;
+	margin-bottom: .5rem;
+}
