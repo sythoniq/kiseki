@@ -10,7 +10,7 @@ export default function useGetUser() {
 	useEffect(() => {
 		let active = false;
 		async function getUser() {
-			if (!token) {
+			if (token == null || token == undefined) {
 				setLoading(false)
 				return;
 			}
@@ -21,12 +21,6 @@ export default function useGetUser() {
 					"Authorization": token
 				}
 			})
-
-			if (!res.ok) {
-				setError("Server error")
-				setLoading(false)
-				return;
-			}
 
 			const data = await res.json()
 
