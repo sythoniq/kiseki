@@ -8,7 +8,7 @@ async function getUser(req, res, next) {
 			return res.status(400).json({success: false, message: "No user!"})
 		}	
 
-		const user = await primsa.user.findUnique({
+		const user = await prisma.user.findUnique({
 			where: {
 				user_id: Number(req.user.userid)
 			},
