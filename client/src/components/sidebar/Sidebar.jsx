@@ -45,14 +45,14 @@ export default function Sidebar(props) {
 	return (
 		<header className={styles.sidebar}>
 			<h1>Kiseki</h1>
-			<p>Random linux fixes and guides storehouse</p>
+			<p>Random guides and linux stuff as well</p>
 			<main className={styles.categories}>
 				{categList}	
 			</main>
 			<div className={styles.user}>
 				{ props.userObj ? (
 					<div className={styles.loggedIn}>
-						<span>{props.user.user_name}</span>
+						<span>{props.userObj.user_name}</span>
 						<span><button onClick={handleLogout}>Logout</button></span>
 					</div>
 				) : (

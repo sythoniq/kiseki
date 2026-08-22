@@ -12,8 +12,9 @@ body, html {
 	height: 100%;
 	width: 100%;
 	display: grid;
-	grid-template: auto / 300px 1fr;
+	grid-template: auto / 350px 1fr;
 	column-gap: 2rem;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .loader {

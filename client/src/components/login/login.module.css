@@ -1,0 +1,48 @@
+.loginPage {
+	display: flex;
+	flex-direction: column;
+	gap: 1.2em;
+	align-items: center;
+	margin-top: 5%;
+}
+
+.loginForm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2em;
+	padding: 2.5em;
+	border-radius: 12px;
+}
+
+.loginForm > div {
+	display: flex;
+	flex-direction: column;
+	gap: .2em;
+}
+
+.loginForm > div > input {
+	padding: 0 1.2em 0 .2em;
+	font-size: 1em;
+}
+
+.loginForm > div > label {
+	font-size: 1.2em;
+}
+
+.loginForm > button {
+	width: 75%;
+	padding: .2em;
+	font-size: 1.2rem;
+	background-color: green;
+	color: white;
+	border: .2px solid green;
+	border-radius: 12px;
+	cursor: pointer
+}
+
+.splitLine {
+	border: 1px solid black;
+	width: 50%;
+	margin-bottom: .5rem;
+}
