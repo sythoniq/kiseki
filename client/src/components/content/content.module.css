@@ -1,0 +1,22 @@
+.mainContent {
+	display: flex;
+	flex-direction: column;
+	gap: 2em;
+	padding: 3em;
+}
+
+.postCard {
+	border-bottom: 1px solid white;
+	max-width: 100%;
+	font-size: 1em;
+	display: flex;
+	gap: 2em;	
+}
+
+.postCard > a {
+	text-decoration: none;
+}
+
+.categoryTag {
+
+}
