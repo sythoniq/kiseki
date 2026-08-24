@@ -20,7 +20,9 @@ export default function Sidebar(props) {
 			return;
 		}
 
-		return localStorage.removeItem('jwt-token');
+		localStorage.removeItem('jwt-token')
+		navigate("/login")
+		return;
 	}
 
 	if (isLoading) {
@@ -44,8 +46,10 @@ export default function Sidebar(props) {
 
 	return (
 		<header className={styles.sidebar}>
-			<h1>Kiseki</h1>
-			<p>Random guides and linux stuff as well</p>
+			<div>
+				<h1>Kiseki</h1>
+				<p>Random guides and linux stuff as well</p>
+			</div>
 			<main className={styles.categories}>
 				{categList}	
 			</main>
