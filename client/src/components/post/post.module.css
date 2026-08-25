@@ -1,0 +1,12 @@
+.postPage {
+	display: flex;
+	flex-direction: column;
+}
+
+.commentSection {
+	max-width: 50rem;
+	max-height: 25rem;
+	overflow: scroll;
+	display: flex;
+	flex-direction: column;
+}
