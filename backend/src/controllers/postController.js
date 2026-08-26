@@ -5,7 +5,7 @@ async function getPosts(req, res, next) {
     const posts = await prisma.post.findMany({})
 		return res.status(200).json({success: true, posts});
   } catch(err) {
-    return res.status(500).json({success: false, message: "Unexpected Error", e: err.message})
+    return res.status(500).json({success: false, message: err.message})
   } 
 }
   
@@ -21,7 +21,7 @@ async function getPost(req, res, next) {
 
     return res.status(200).json({success: true, post})
   } catch(err) {
-    return res.status(500).json({success: false, e: err.message})
+    return res.status(500).json({success: false, message: err.message})
   }
 }
 
@@ -34,7 +34,7 @@ async function getPostComments(req, res, next) {
     `;
     return res.status(200).json({success: true, comments})
   } catch(err) {
-    return res.status(500).json({success: false, message: "Server error", e: err.message})
+    return res.status(500).json({success: false, message: err.message})
   }
 }
 
@@ -68,7 +68,7 @@ async function uploadPost(req, res, next) {
 		
     return res.status(200).json({success: true, message: "Post uploaded", post})
   } catch(err) {
-    return res.status(500).json({success: false, message: "Server error", e: err.message})
+    return res.status(500).json({success: false, message: err.message})
   }
 }
 async function postComment(req, res, next) { 
@@ -89,9 +89,9 @@ async function postComment(req, res, next) {
       }
     }) 
 
-    return res.status(200).json({success: true, msg: "Comment posted successfully", comment})
+    return res.status(200).json({success: true, message: "Comment posted successfully", comment})
   } catch(err) {
-    return res.status(500).json({success: false, msg: "Comment not posted", e: err.message}); 
+    return res.status(500).json({success: false, message: err.message}); 
   } 
 }
 
@@ -134,7 +134,7 @@ async function deletePost(req, res, next) {
 		console.log(delPost)
 		return res.status(200).json({success: true, message: "Post deleted!"})
   } catch(err) {
-    return res.status(500).json({success: false, message: "Server error", e: err.message});
+    return res.status(500).json({success: false, message: err.message});
   }
 }
 
@@ -172,7 +172,7 @@ async function deletePostComment(req, res, next) {
 
 		return res.status(200).json({success: true, message: "Comment deleted!"})
   } catch (err) {
-    return res.json({success: false, message: "Server error", e: err.message}) 
+    return res.json({success: false, message: err.message}) 
   }
 }
 
@@ -210,7 +210,7 @@ async function updatePost(req, res, next) {
 		})
 		return res.status(200).json({success: true, message: "Post updated", updatePost})
   } catch(err) {
-    return res.status(500).json({success: false, message: "Server error", e: err.message}) 
+    return res.status(500).json({success: false, message: err.message}) 
   }
 }
 
@@ -255,7 +255,7 @@ async function publishPost(req, res, next) {
 		return res.status(200).json({success: true, message: "Post published!"})
 
 	} catch(err) {
-		return res.status(500).json({success: false, message: "Server error", e: err.message})
+		return res.status(500).json({success: false, message: err.message})
 	}
 }
 
@@ -300,7 +300,7 @@ async function unpublishPost(req, res, next) {
 		return res.status(200).json({success: true, message: "Post unpublished!"})
 
 	} catch(err) {
-		return res.status(500).json({success: false, message: "Server error", e: err.message})
+		return res.status(500).json({success: false, message: err.message})
 	}
 }
 

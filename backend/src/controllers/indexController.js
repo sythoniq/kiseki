@@ -23,7 +23,7 @@ async function getUser(req, res, next) {
 
 		return res.status(200).json({success: true, message: "User found", user})
 	} catch(e) {
-		return res.status(500).json({success: false, message: "Server error", error: e.message})
+		return res.status(500).json({success: false, message: e.message})
 	}
 }
 
@@ -56,7 +56,7 @@ async function handleRegister(req, res, next) {
 		return res.status(200).json({success: true, message: "User created"})
 	} catch(e) {
 		console.log(e)
-		return res.status(500).json({success: false, message: "Unexpected error", error: e.message})
+		return res.status(500).json({success: false, message: e.message})
 	}
 }
 
@@ -86,7 +86,7 @@ async function handleLogin(req, res, next) {
 
 		return res.status(200).json({success: true, message: "Login successful", token: `Bearer ${token}`})
 	}	catch(e) {
-		return res.status(500).json({success: false, message: "Unexpected Error", error: e.message})
+		return res.status(500).json({success: false, message: e.message})
 	}
 }
 

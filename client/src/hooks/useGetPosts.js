@@ -15,7 +15,7 @@ export default function useGetPosts() {
 				const data = await res.json()
 
 				if (data.success == false) {
-					setIsError(data.e)
+					setIsError(data.message)
 					setIsLoading(false)
 				}
 

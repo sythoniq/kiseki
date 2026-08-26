@@ -14,7 +14,7 @@ export default function useGetPost(postId) {
 				const res = await fetch(`${API}/posts/${postId}`);
 				const data = await res.json()
 				if (data.success != true) {
-					setError(data.e)
+					setError(data.message)
 					setLoading(false)
 					return;
 				}
