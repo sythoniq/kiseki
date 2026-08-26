@@ -130,8 +130,6 @@ async function deletePost(req, res, next) {
 				post_id: Number(req.params.postId)
 			}
 		})
-		// Checking what exactly prisma returns when delete is called
-		console.log(delPost)
 		return res.status(200).json({success: true, message: "Post deleted!"})
   } catch(err) {
     return res.status(500).json({success: false, message: err.message});
@@ -194,12 +192,12 @@ async function updatePost(req, res, next) {
       }
     })
 
-		if (user.user_id != post.author_id) {
-			return res.status(401).json({success: false, message: "Unauthorized!"})
-		}
-
 		if (!post) {
 			return res.status(404).json({success: false, message: "Post not found!"})
+		}
+
+		if (user.user_id != post.author_id) {
+			return res.status(401).json({success: false, message: "Unauthorized!"})
 		}
 
 		// Not fully sensible way to do the post update fully relying on the client to provide everything so the frontend should always make sure i provide both title and content.... TT
@@ -245,7 +243,7 @@ async function publishPost(req, res, next) {
 		}
 
 		if (post.published) {
-			return;
+			return res.status(200).json({success: 200, message: "Post already published!"});
 		}
 
 		const publishPost = await prisma.post.update({
@@ -290,7 +288,7 @@ async function unpublishPost(req, res, next) {
 		}
 
 		if (!post.published) {
-			return;
+			return res.status(200).json({success: true, message: "Post is not published!"});
 		}
 
 		const publishPost = await prisma.post.update({

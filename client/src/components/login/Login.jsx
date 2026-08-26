@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
+import toast from 'react-hot-toast'
 import styles from './login.module.css'
 
 export default function Login() {
@@ -7,14 +8,22 @@ export default function Login() {
 	const navigate = useNavigate()
 	const [ username, setUsername ] = useState()
 	const [ password, setPassword ] = useState()
-	const [ error, setError ] = useState(null)
 
 	async function handleLogin(e) {
 		e.preventDefault()
 		try {
-			if (!username || !password) {
-				return;
+			if (!username) {
+				return toast.error("Username not provided!")
 			}
+
+			if (username.length < 3) {
+				return toast.error("Username must be more than 3 characters")
+			} 
+
+			if (!password) {
+				return toast.error("Password not provided!")
+			}
+
 			const res = await fetch(`${API}/login`, {
 				method: "POST",
 				headers: {
@@ -22,26 +31,16 @@ export default function Login() {
 				},
 				body: JSON.stringify({username, password})
 			})	
-			if (!res.ok) {
-				setError("Server error")
-			}
 			const data = await res.json()
 			if (data.success != true) {
-				setError(data.error)
+				return toast.error(`${data.message}`)
 			}
 			localStorage.setItem("jwt-token", data.token)
-			navigate("/")
-			return;
+			toast.success("Success")
+			return navigate("/")
 		} catch(e) {
-			setError(e.message)
+			return toast.error(e.message)
 		}
-	}
-
-	if (error) {
-		console.error(error)
-		return (
-			<div>Error check logs</div>
-		)
 	}
 
 	return (

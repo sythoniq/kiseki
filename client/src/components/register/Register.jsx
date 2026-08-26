@@ -1,4 +1,5 @@
 import styles from './register.module.css'
+import toast from 'react-hot-toast'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 
@@ -7,14 +8,26 @@ export default function register() {
 	const navigate = useNavigate()
 	const [ username, setUsername ] = useState()
 	const [ password, setPassword ] = useState()
-	const [ error, setError ] = useState(null)
 
 	async function handleRegister(e) {
 		e.preventDefault()
 		try {
-			if (!username || !password) {
-				return;
+			if (!username) {
+				return toast.error("Username not provided!")
 			}
+
+			if (username.length < 3) {
+				return toast.error("Username must be more than 3 characters")
+			} 
+
+			if (!password) {
+				return toast.error("Password not provided!")
+			}
+
+			if (password.length < 8) {
+				return toast.error("Password must be 8 characters or more")
+			}
+
 			const res = await fetch(`${API}/register`, {
 				method: "POST",
 				headers: {
@@ -22,25 +35,16 @@ export default function register() {
 				},
 				body: JSON.stringify({username, password})
 			})	
-			if (!res.ok) {
-				setError("Server error")
-			}
+
 			const data = await res.json()
 			if (data.success != true) {
-				setError(data.error)
+				return toast.error(`${data.message}`)
 			}
-			navigate("/login")
-			return;
+			toaster.success("Success..")
+			return navigate("/login")
 		} catch(e) {
-			setError(e.message)
+			return toast.error(e.message)
 		}
-	}
-
-	if (error) {
-		console.error(error)
-		return (
-			<div>Error check logs</div>
-		)
 	}
 
 	return (

@@ -28,6 +28,7 @@ body, html {
 	animation: rotation 1s linear infinite;
 	position: absolute;
 	top: 30%;
+	left: 50%;
 }
 
 @keyframes rotation {

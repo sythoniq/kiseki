@@ -17,6 +17,7 @@ export default function useGetPosts() {
 				if (data.success == false) {
 					setIsError(data.message)
 					setIsLoading(false)
+					return;
 				}
 
 				const publishedPosts = data.posts.filter((post) => post.published == true)

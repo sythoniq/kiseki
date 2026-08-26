@@ -6,15 +6,16 @@ export default function Content() {
 	const [ posts, postCategories, isLoading, isError ] = useGetPosts()
 	if (isLoading) {
 		return (
-			<span>Loading..</span>
+			<span className="loader"></span>
 		)
 	}
 	
 	if (isError) {
 		return (
-			<span>Error </span>
+			<span className="error">{isError}</span>
 		)
 	}
+
 	const postsList = posts.map(post => 
 		<section key={post.post_id} className={styles.postCard}>
 			<Link to={`posts/${post.post_id}`}><h2>{post.post_title}</h2></Link>

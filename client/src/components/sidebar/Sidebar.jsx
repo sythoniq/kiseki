@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
+import toast from 'react-hot-toast'
 import styles from './sidebar.module.css'
 
 import useGetPosts from '../../hooks/useGetPosts.js'
+import useGetUser from '../../hooks/useGetUser.js'
 
 export default function Sidebar(props) {
 	const navigate = useNavigate()
+	const user = props.user;
 	const [ posts, postCategories, isLoading, isError ] = useGetPosts()
 
 	function handleLogin(e) {
@@ -27,17 +30,12 @@ export default function Sidebar(props) {
 
 	if (isLoading) {
 		return (
-			<>
-				<h1>Kiseki</h1>
-				<p>Small time guide and fixes for things that have interested me...</p>
-			</>
+			<span className="loader"></span>
 		)
 	}
 
 	if (isError) {
-		return (
-			<p>Error</p>
-		)
+		return toast.error(`${isError}`)	
 	}
 
 	const categList = postCategories.map(categ => 
@@ -56,7 +54,7 @@ export default function Sidebar(props) {
 			<div className={styles.user}>
 				{ props.userObj ? (
 					<div className={styles.loggedIn}>
-						<span>{props.userObj.user_name}</span>
+						<span>{props.user.user_name}</span>
 						<span><button onClick={handleLogout}>Logout</button></span>
 					</div>
 				) : (
