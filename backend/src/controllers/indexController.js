@@ -30,7 +30,7 @@ async function getUser(req, res, next) {
 async function handleRegister(req, res, next) {
 	try {
 		if (!req.body.username || !req.body.password) {
-			return res.status(404).json({success: false, message: "Missing data!"})
+			return res.status(400).json({success: false, message: "Missing data!"})
 		}
 
 		const { username, password } = req.body
@@ -63,7 +63,7 @@ async function handleRegister(req, res, next) {
 async function handleLogin(req, res, next) {
 	try {
 		if (!req.body.username || !req.body.password) {
-			return res.status(404).json({success: false, message: "Missing data!"})
+			return res.status(400).json({success: false, message: "Missing data!"})
 		}
 
 		const { username, password } = req.body;
