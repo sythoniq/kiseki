@@ -243,7 +243,7 @@ async function publishPost(req, res, next) {
 		}
 
 		if (post.published) {
-			return res.status(200).json({success: 200, message: "Post already published!"});
+			return res.status(200).json({success: true, message: "Post already published!"});
 		}
 
 		const publishPost = await prisma.post.update({
