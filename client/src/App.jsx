@@ -9,7 +9,7 @@ export default function App() {
 	const [ user, loading, error ] = useGetUser()
 	if (loading) {
 		return (
-			<span>Loading spinner</span>
+			<span className="loader"></span>
 		)
 	}
 

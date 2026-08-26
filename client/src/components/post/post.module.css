@@ -1,6 +1,40 @@
 .postPage {
 	display: flex;
 	flex-direction: column;
+	color: white;
+}
+
+.post {
+	display: flex;
+	flex-direction: column;
+	overflow: scroll;
+	gap: 1.2em;
+	padding: 1.2em .2em;
+}
+
+.postDetails {
+	display: flex;
+	flex-direction: column;
+	font-size: 1.2rem;
+	gap: 1.2em;
+}
+
+.postDetails > div {
+	display: flex;
+	gap: .6em;
+	font-size: 1.2rem;
+}
+
+.postCateg {
+	font-weight: 600;
+	color: white;
+	background-color: rgba(0, 150, 255, 0.7);
+	padding: 0 .5em;
+	border-radius: 12px;
+}
+
+.postBody {
+	display: flex;
 }
 
 .commentSection {

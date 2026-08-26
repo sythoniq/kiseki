@@ -10,8 +10,24 @@ export default function useGetPost(postId) {
 
 	useEffect(() => {
 		async function getPost() {
-
+			try {
+				const res = await fetch(`${API}/posts/${postId}`);
+				const data = await res.json()
+				console.log(data)
+				if (data.success != true) {
+					setError(data.e)
+					setLoading(false)
+					return;
+				}
+				setPost(data.post)
+				setPostComments(data.post.comments)
+				setLoading(false)
+			} catch(e) {
+				setError(e.message)
+			}
 		}
+
+		getPost()
 	}, [API])
 
 	return [ post, postComments, loading, error ]

@@ -15,11 +15,13 @@ async function getPost(req, res, next) {
 			return res.status(404).json({success: false, message: "Post Id not provided"})
 		}
     const post = await prisma.post.findUnique({
-      where: { post_id: Number(req.params.postId) }
+      where: { post_id: Number(req.params.postId) },
+			include: { comments: true },
     })
+
     return res.status(200).json({success: true, post})
   } catch(err) {
-    return res.status(500).json({success: false, err})
+    return res.status(500).json({success: false, e: err.message})
   }
 }
 

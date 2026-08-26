@@ -15,7 +15,6 @@ export default function Content() {
 			<span>Error </span>
 		)
 	}
-
 	const postsList = posts.map(post => 
 		<section key={post.post_id} className={styles.postCard}>
 			<Link to={`posts/${post.post_id}`}><h2>{post.post_title}</h2></Link>

@@ -18,9 +18,11 @@ export default function useGetPosts() {
 					setIsError(data.e)
 					setIsLoading(false)
 				}
+
+				const publishedPosts = data.posts.filter((post) => post.published == true)
 				
-				setPosts(data.posts);
-				setPostCategories(data.posts.map((post)=> post.post_category))
+				setPosts(publishedPosts);
+				setPostCategories(publishedPosts.map((post)=> post.post_category))
 				setIsLoading(false);
 			} catch(e) {
 				setIsError(e.message)
