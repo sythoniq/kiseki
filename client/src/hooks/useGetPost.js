@@ -13,7 +13,6 @@ export default function useGetPost(postId) {
 			try {
 				const res = await fetch(`${API}/posts/${postId}`);
 				const data = await res.json()
-				console.log(data)
 				if (data.success != true) {
 					setError(data.e)
 					setLoading(false)

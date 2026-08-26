@@ -13,7 +13,6 @@ export default function Post() {
 	}
 
 	if (error) {
-		console.error(error)
 		return (
 			<span>error</span>
 		)
