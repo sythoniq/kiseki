@@ -52,7 +52,7 @@ export default function Sidebar(props) {
 				{categList}	
 			</main>
 			<div className={styles.user}>
-				{ props.userObj ? (
+				{ props.user ? (
 					<div className={styles.loggedIn}>
 						<span>{props.user.user_name}</span>
 						<span><button onClick={handleLogout}>Logout</button></span>

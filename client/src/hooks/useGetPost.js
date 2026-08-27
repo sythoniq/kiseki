@@ -27,7 +27,7 @@ export default function useGetPost(postId) {
 		}
 
 		getPost()
-	}, [API])
+	}, [postId])
 
 	return [ post, postComments, loading, error ]
 }

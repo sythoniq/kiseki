@@ -46,7 +46,7 @@ export default function useGetUser() {
 		return () => {
 			active = true;
 		}
-	}, [postId])
+	}, [API])
 
 	return [ user, loading, error ]
 }
