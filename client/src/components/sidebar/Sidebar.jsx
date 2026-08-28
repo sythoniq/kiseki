@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, Link } from 'react-router'
 import toast from 'react-hot-toast'
 import styles from './sidebar.module.css'
 
@@ -45,7 +45,7 @@ export default function Sidebar(props) {
 	return (
 		<header className={styles.sidebar}>
 			<div>
-				<h1>Kiseki</h1>
+				<Link to="/"><h1>Kiseki</h1></Link>
 				<p>Random guides and linux stuff as well</p>
 			</div>
 			<main className={styles.categories}>
