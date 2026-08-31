@@ -55,7 +55,6 @@ async function handleRegister(req, res, next) {
 
 		return res.status(200).json({success: true, message: "User created"})
 	} catch(e) {
-		console.log(e)
 		return res.status(500).json({success: false, message: e.message})
 	}
 }

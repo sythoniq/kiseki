@@ -14,11 +14,22 @@ async function getPost(req, res, next) {
 		if (!req.params.postId) {
 			return res.status(404).json({success: false, message: "Post Id not provided"})
 		}
-    const post = await prisma.post.findUnique({
-      where: { post_id: Number(req.params.postId) },
-			include: { comments: true },
-    })
-
+		const post = await prisma.post.findUnique({
+			where: { post_id: Number(req.params.postId) },
+			include: {
+				comments: {
+					select: {
+						comment_id: true,
+						comment_content: true,
+						author: {
+							select: {
+								user_name: true
+							},
+						}
+					}
+				}
+			}
+		})
     return res.status(200).json({success: true, post})
   } catch(err) {
     return res.status(500).json({success: false, message: err.message})
@@ -30,7 +41,7 @@ async function getPostComments(req, res, next) {
 		const postId = Number(req.params.postId)
     const comments = await prisma.$queryRaw`
       SELECT comment_content, "User".user_name FROM "Comment" INNER JOIN "User" ON
-      "Comment"."author_id"="User"."user_id" WHERE "Comment".post_id = ${postId};
+      "Comment".author_id="User".user_id WHERE "Comment".post_id = ${postId};
     `;
     return res.status(200).json({success: true, comments})
   } catch(err) {
