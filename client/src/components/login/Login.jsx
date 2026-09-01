@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, useOutletContext } from 'react-router'
 import toast from 'react-hot-toast'
 import styles from './login.module.css'
 
 export default function Login() {
 	const API = import.meta.env.VITE_BASE_API
+	const { user, setUser } = useOutletContext()
 	const navigate = useNavigate()
 	const [ username, setUsername ] = useState()
 	const [ password, setPassword ] = useState()

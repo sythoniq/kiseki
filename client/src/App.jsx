@@ -7,7 +7,7 @@ import useGetUser from './hooks/useGetUser.js'
 import Sidebar from './components/sidebar/Sidebar.jsx'
 
 export default function App() {
-	const [ user, loading, error ] = useGetUser()
+	const [ user, loading, error, setUser ] = useGetUser()
 
 	if (loading) {
 		return (
@@ -21,9 +21,9 @@ export default function App() {
 	
 	return (
 		<>
-			<Sidebar user={user} />
+			<Sidebar userSet={setUser} userObj={user} />
 			<Toaster position="top-right" />
-			<Outlet />
+			<Outlet context={{user, setUser}} />
 		</>
 	)
 }

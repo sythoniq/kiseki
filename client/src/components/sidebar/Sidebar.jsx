@@ -8,7 +8,7 @@ import useGetUser from '../../hooks/useGetUser.js'
 
 export default function Sidebar(props) {
 	const navigate = useNavigate()
-	const user = props.user;
+	const user = props.userObj;
 	const [ posts, postCategories, isLoading, isError ] = useGetPosts()
 
 	function handleLogin(e) {
@@ -24,7 +24,7 @@ export default function Sidebar(props) {
 		}
 
 		localStorage.removeItem('jwt-token')
-		return navigate("/login")
+		return props.userSet(null)
 	}
 
 	if (isLoading) {
@@ -51,9 +51,9 @@ export default function Sidebar(props) {
 				{categList}	
 			</main>
 			<div className={styles.user}>
-				{ props.user ? (
+				{ user ? (
 					<div className={styles.loggedIn}>
-						<span>{props.user.user_name}</span>
+						<span>{user.user_name}</span>
 						<span><button onClick={handleLogout}>Logout</button></span>
 					</div>
 				) : (

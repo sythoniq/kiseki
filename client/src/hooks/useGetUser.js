@@ -48,5 +48,5 @@ export default function useGetUser() {
 		}
 	}, [API])
 
-	return [ user, loading, error ]
+	return [ user, loading, error, setUser ]
 }

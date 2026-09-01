@@ -3,7 +3,7 @@ import toast from 'react-hot-toast'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 
-export default function register() {
+export default function Register() {
 	const API = import.meta.env.VITE_BASE_API
 	const navigate = useNavigate()
 	const [ username, setUsername ] = useState()
@@ -40,7 +40,7 @@ export default function register() {
 			if (data.success != true) {
 				return toast.error(`${data.message}`)
 			}
-			toaster.success("Success..")
+			toast.success("Success..")
 			return navigate("/login")
 		} catch(e) {
 			return toast.error(e.message)
@@ -63,7 +63,7 @@ export default function register() {
 				<button onClick={handleRegister}>Sign up</button>
 			</form>
 			<span className={styles.splitLine}></span>
-			<span>Already have an account?<a href="/register">Sign in</a></span>
+			<span>Already have an account?<a href="/login">Sign in</a></span>
 		</main>
 	)
 }
