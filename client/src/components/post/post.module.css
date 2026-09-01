@@ -3,6 +3,7 @@
 	grid-template: auto / 1fr .2fr;
 	color: white;
 	padding: 2em;
+	gap: .5em;
 }
 
 .post {
@@ -12,6 +13,7 @@
 	gap: 1.2em;
 	padding: 1.2em .2em;
 	height: 90%;
+	border-right: 5px solid white;
 }
 
 .postDetails {
@@ -72,3 +74,8 @@
 	color: white;
 }
 
+.comments {
+	display: flex;
+	flex-direction: column;
+	gap: 1.2rem;
+}

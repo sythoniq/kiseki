@@ -24,8 +24,7 @@ export default function Sidebar(props) {
 		}
 
 		localStorage.removeItem('jwt-token')
-		navigate("/login")
-		return;
+		return navigate("/login")
 	}
 
 	if (isLoading) {

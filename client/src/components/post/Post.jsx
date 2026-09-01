@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import toast from 'react-hot-toast'
 import styles from './post.module.css'
 import useGetPost from '../../hooks/useGetPost.js'
+import Comment from '../comment/Comment.jsx'
 
 export default function Post() {
 	const API = import.meta.env.VITE_BASE_API
+	const navigate = useNavigate()
 	const postId = Number(useParams().postId)
 	const [ post, postComments, loading, error ] = useGetPost(postId)
 	const [ comment, setComment ] = useState()
@@ -24,7 +26,6 @@ export default function Post() {
 
 	async function handleComment(e) {
 		e.preventDefault()
-
 		try {
 			if (!comment) {
 				return toast.error("Comment is empty!")
@@ -47,17 +48,15 @@ export default function Post() {
 				}
 				return toast.error(data.message)
 			}
+			navigate(0)
 			return toast.success("Comment success")
 		} catch (e) {
 			return toast.error(e)
 		}
 	}
 
-	console.log(postComments)
 	const commentList = postComments.map((comment) => 
-		<div key={comment.comment_id} className={styles.commentCard}>
-			<span>{comment.comment_content}</span>
-		</div>
+		<Comment key={comment.comment_id} comment={comment} />
 	)
 
 	return (
