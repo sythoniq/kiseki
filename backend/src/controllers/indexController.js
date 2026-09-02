@@ -4,22 +4,7 @@ const prisma = require('../configs/prisma.js')
 
 async function getUser(req, res, next) {
 	try {
-		if (req.user == null || req.user == undefined) {
-			return res.status(200).json({success: true, user: null})
-		}	
-
-		const user = await prisma.user.findUnique({
-			where: {
-				user_id: Number(req.user.userid)
-			},
-			omit: {
-				user_hash: true
-			}
-		})
-
-		if (!user) {
-			return res.status(404).json({success: false, message: "User not found!"})
-		}
+		const user = req.user
 
 		return res.status(200).json({success: true, message: "User found", user})
 	} catch(e) {
