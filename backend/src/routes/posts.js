@@ -15,6 +15,6 @@ posts.put("/:postId/update", auth.validateUser, auth.validateAuthor, controller.
 posts.delete("/:postId/delete", auth.validateUser, controller.deletePost)
 posts.post("/:postId/publish", auth.validateUser, auth.validateAuthor, controller.publishPost)
 posts.post("/:postId/unpublish", auth.validateUser, auth.validateAuthor, controller.unpublishPost);
-posts.post("/:postId/comment/:commentId", auth.validateUser, controller.deletePostComment)
+posts.delete("/:postId/comment/:commentId", auth.validateUser, controller.deletePostComment)
 
 module.exports = posts

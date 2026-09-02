@@ -11,9 +11,6 @@ async function getPosts(req, res, next) {
   
 async function getPost(req, res, next) {
   try {
-		if (!req.params.postId) {
-			return res.status(404).json({success: false, message: "Post Id not provided"})
-		}
 		const post = await prisma.post.findUnique({
 			where: { post_id: Number(req.params.postId) },
 			include: {
@@ -88,7 +85,7 @@ async function deletePost(req, res, next) {
 		}
 
 		if (req.user.user_id != post.author_id && !req.user.admin) {
-			return res.status(401).json({success: false, message: "Unauthorized!"})
+			return res.status(403).json({success: false, message: "Unauthorized!"})
 		}
 
 		const delPost = await prisma.post.delete({
@@ -144,7 +141,7 @@ async function updatePost(req, res, next) {
 		}
 
 		if (req.user.user_id != post.author_id) {
-			return res.status(401).json({success: false, message: "Unauthorized!"})
+			return res.status(403).json({success: false, message: "Unauthorized!"})
 		}
 
 		const updatePost = await prisma.post.update({
@@ -171,7 +168,7 @@ async function publishPost(req, res, next) {
 		}
 
 		if (post.author_id != req.user.user_id) {
-			return res.status(401).json({success: false, message: "Unauthorized!"})
+			return res.status(403).json({success: false, message: "Unauthorized!"})
 		}
 
 		if (post.published) {
@@ -202,7 +199,7 @@ async function unpublishPost(req, res, next) {
 		}
 
 		if (post.author_id != req.user.user_id) {
-			return res.status(401).json({success: false, message: "Unauthorized!"})
+			return res.status(403).json({success: false, message: "Unauthorized!"})
 		}
 
 		if (!post.published) {
