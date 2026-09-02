@@ -20,10 +20,8 @@ export default function useGetPosts() {
 					return;
 				}
 
-				const publishedPosts = data.posts.filter((post) => post.published == true)
-				
-				setPosts(publishedPosts);
-				setPostCategories(publishedPosts.map((post)=> post.post_category))
+				setPosts(data.posts);
+				setPostCategories(data.posts.map((post)=> post.post_category))
 				setIsLoading(false);
 			} catch(e) {
 				setIsError(e.message)

@@ -20,7 +20,11 @@ export default function Post() {
 
 	if (error) {
 		return (
-			<span>error</span>
+			<div className="error">
+				<span>An error has occurred</span>
+
+				<p>{error}</p>
+			</div>
 		)
 	}
 

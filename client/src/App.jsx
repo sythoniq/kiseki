@@ -16,7 +16,13 @@ export default function App() {
 	}
 
 	if (error) {
-		return toast.error(`${error.message}`)
+		return (
+			<div className="error">
+				<span>An error occurred</span>
+
+				<p>{error}</p>
+			</div>
+		)
 	}
 	
 	return (

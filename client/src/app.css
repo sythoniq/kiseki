@@ -17,6 +17,12 @@ body, html {
 	background-color: rgba(0, 0, 0, 0.8);
 }
 
+.error {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
 .loader {
 	width: 5rem;
 	height: 5rem;
@@ -39,3 +45,4 @@ body, html {
 		transform: rotate(360deg);
 	}
 }
+
