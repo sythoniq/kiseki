@@ -24,7 +24,7 @@ async function handleRegister(req, res, next) {
 		})
 
 		if (user) {
-			return res.status(401).json({success: false, message: "User already exists"})
+			return res.status(409).json({success: false, message: "Failed to register!"})
 		}
 
 		const hash = await bcrypt.hash(password, 10)
@@ -35,10 +35,10 @@ async function handleRegister(req, res, next) {
 			}
 		})
 		if (!newUser) {
-			return res.status(500).json({success: false, message: "Unexpected error"})
+			return res.status(500).json({success: false, message: "Unexpected error!"})
 		}
 
-		return res.status(200).json({success: true, message: "User created"})
+		return res.status(200).json({success: true, message: "User created!"})
 	} catch(e) {
 		return res.status(500).json({success: false, message: e.message})
 	}
@@ -58,12 +58,12 @@ async function handleLogin(req, res, next) {
 		})
 
 		if (!user) {
-			return res.status(404).json({success: false, message: "User not found"})
+			return res.status(401).json({success: false, message: "Invalid credentials"})
 		}
 		
 		const result = await bcrypt.compare(password, user.user_hash)
 		if (!result) {
-			return res.status(401).json({success: false, message: "Incorrect password"})
+			return res.status(401).json({success: false, message: "Invalid credentials"})
 		}
 
 		const token = jwt.sign({userid: user.user_id, iat: Date.now()}, process.env.JWT_SECRET, {expiresIn: '7d'});

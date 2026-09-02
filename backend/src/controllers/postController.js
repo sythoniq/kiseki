@@ -2,7 +2,11 @@ const prisma = require("../configs/prisma.js")
 
 async function getPosts(req, res, next) {
   try {
-    const posts = await prisma.post.findMany({})
+    const posts = await prisma.post.findMany({
+			where: {
+				published: true
+			}
+		})
 		return res.status(200).json({success: true, posts});
   } catch(err) {
     return res.status(500).json({success: false, message: err.message})
@@ -11,8 +15,12 @@ async function getPosts(req, res, next) {
   
 async function getPost(req, res, next) {
   try {
+		if (isNaN(Number(req.params.postId))) {
+			return res.status(400).json({success: false, message: "Invalid post id"})
+		}
+
 		const post = await prisma.post.findUnique({
-			where: { post_id: Number(req.params.postId) },
+			where: { post_id: Number(req.params.postId), published: true },
 			include: {
 				comments: {
 					select: {
@@ -43,7 +51,8 @@ async function uploadPost(req, res, next) {
       data: {
         post_title: req.body.title,
         post_content: req.body.content,
-        author_id: Number(req.user.user_id)
+        author_id: Number(req.user.user_id),
+				post_category: req.body.category
       }
     })
 		
@@ -54,6 +63,10 @@ async function uploadPost(req, res, next) {
 }
 async function postComment(req, res, next) { 
   try {
+		if (isNaN(Number(req.params.postId))) {
+			return res.status(400).json({success: false, message: "Invalid post id"})
+		}
+
 		if (!req.body.content) {
 			return res.status(400).json({success: false, message: "Missing data!"})
 		}
@@ -74,6 +87,10 @@ async function postComment(req, res, next) {
 
 async function deletePost(req, res, next) {
   try {
+		if (isNaN(Number(req.params.postId))) {
+			return res.status(400).json({success: false, message: "Invalid post id"})
+		}
+
     const post = await prisma.post.findUnique({
       where: {
         post_id: Number(req.params.postId)
@@ -130,6 +147,10 @@ async function deletePostComment(req, res, next) {
 
 async function updatePost(req, res, next) {
   try {
+		if (isNaN(Number(req.params.postId))) {
+			return res.status(400).json({success: false, message: "Invalid post id"})
+		}
+
     const post = await prisma.post.findUnique({
       where: {
         post_id: Number(req.params.postId)
@@ -157,6 +178,10 @@ async function updatePost(req, res, next) {
 
 async function publishPost(req, res, next) {
 	try {
+		if (isNaN(Number(req.params.postId))) {
+			return res.status(400).json({success: false, message: "Invalid post id"})
+		}
+
 		const post = await prisma.post.findUnique({
 			where: {
 				post_id: Number(req.params.postId)
@@ -188,6 +213,10 @@ async function publishPost(req, res, next) {
 
 async function unpublishPost(req, res, next) {
 	try {
+		if (isNaN(Number(req.params.postId))) {
+			return res.status(400).json({success: false, message: "Invalid post id"})
+		}
+
 		const post = await prisma.post.findUnique({
 			where: {
 				post_id: Number(req.params.postId)
