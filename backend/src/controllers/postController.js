@@ -46,7 +46,7 @@ async function uploadPost(req, res, next) {
       data: {
         post_title: req.body.title,
         post_content: req.body.content,
-        author_id: Number(req.user.userid)
+        author_id: Number(req.user.user_id)
       }
     })
 		
@@ -64,7 +64,7 @@ async function postComment(req, res, next) {
     const comment = await prisma.comment.create({
       data: {
         comment_content: req.body.content,
-        author_id: Number(req.user.userid),
+        author_id: Number(req.user.user_id),
         post_id: Number(req.params.postId) 
       }
     }) 
@@ -81,13 +81,13 @@ async function deletePost(req, res, next) {
       where: {
         post_id: Number(req.params.postId)
       }
-    })
+		})
 
 		if (!post) {
 			return res.status(404).json({success: false, message: "Post not found"})
 		}
 
-		if (user.user_id != post.author_id) {
+		if (req.user.user_id != post.author_id && !req.user.admin) {
 			return res.status(401).json({success: false, message: "Unauthorized!"})
 		}
 
@@ -115,8 +115,8 @@ async function deletePostComment(req, res, next) {
 			return res.status(404).json({success: false, message: "Comment not found!"})
 		}
 
-		if (comment.author_id != req.user.userid && !user.admin) {
-			return res.status(401).json({success: false, message: "Unauthorized!"})
+		if (comment.author_id != req.user.user_id && !req.user.admin) {
+			return res.status(403).json({success: false, message: "Unauthorized!"})
 		}
 
 		const delComment = await prisma.comment.delete({
@@ -143,7 +143,7 @@ async function updatePost(req, res, next) {
 			return res.status(404).json({success: false, message: "Post not found!"})
 		}
 
-		if (user.user_id != post.author_id) {
+		if (req.user.user_id != post.author_id) {
 			return res.status(401).json({success: false, message: "Unauthorized!"})
 		}
 
@@ -170,7 +170,7 @@ async function publishPost(req, res, next) {
 			return res.status(404).json({success: false, message: "Post not found!"})
 		}
 
-		if (post.author_id != user.user_id) {
+		if (post.author_id != req.user.user_id) {
 			return res.status(401).json({success: false, message: "Unauthorized!"})
 		}
 
@@ -201,7 +201,7 @@ async function unpublishPost(req, res, next) {
 			return res.status(404).json({success: false, message: "Post not found!"})
 		}
 
-		if (post.author_id != user.user_id) {
+		if (post.author_id != req.user.user_id) {
 			return res.status(401).json({success: false, message: "Unauthorized!"})
 		}
 
