@@ -9,7 +9,7 @@ export default function useGetPosts() {
 	const [ postCategories, setPostCategories ] = useState()
 
 	useEffect(() => {
-		let active = false;
+		let active = true;
 		async function getPosts() {
 			try {
 				const res = await fetch(`${API}/posts`)
@@ -42,7 +42,7 @@ export default function useGetPosts() {
 		getPosts()
 
 		return () => {
-			active = true;
+			active = false;
 		}
 	}, [API])
 

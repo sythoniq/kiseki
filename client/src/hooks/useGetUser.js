@@ -8,7 +8,7 @@ export default function useGetUser() {
 	const [ user, setUser ] = useState(null)
 	
 	useEffect(() => {
-		let active = false;
+		let active = true;
 		async function getUser() {
 			try {
 
@@ -58,7 +58,7 @@ export default function useGetUser() {
 		getUser()
 
 		return () => {
-			active = true;
+			active = false;
 		}
 	}, [API, token])
 
