@@ -1,14 +1,12 @@
 import { useState } from 'react'
-import { useNavigate, useOutletContext } from 'react-router'
 import toast from 'react-hot-toast'
 import styles from './login.module.css'
 
 export default function Login() {
 	const API = import.meta.env.VITE_BASE_API
-	const { user, setUser } = useOutletContext()
-	const navigate = useNavigate()
 	const [ username, setUsername ] = useState()
 	const [ password, setPassword ] = useState()
+
 
 	async function handleLogin(e) {
 		e.preventDefault()
@@ -38,16 +36,17 @@ export default function Login() {
 			}
 			localStorage.setItem("jwt-token", data.token)
 			toast.success("Success")
-			return navigate("/")
+			window.location.href = "/"
+			return;
 		} catch(e) {
-			return toast.error(e.message)
+			return toast.error("Something went wrong.")
 		}
 	}
 
 	return (
 		<main className={styles.loginPage}>
 			<h2>Login</h2>
-			<form className={styles.loginForm}>
+			<form onSubmit={handleLogin} className={styles.loginForm}>
 				<div>
 					<label>Username</label>
 					<input type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
@@ -57,10 +56,10 @@ export default function Login() {
 					<input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
 				</div>
 
-				<button onClick={handleLogin}>Login</button>
+				<button>Login</button>
 			</form>
 			<span className={styles.splitLine}></span>
-			<span>Don't have an account?<a href="/register">Sign up</a></span>
+			<span>Don't have an account? <a href="/register">Sign up</a></span>
 		</main>
 	)
 }

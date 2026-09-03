@@ -1,5 +1,5 @@
 import styles from './content.module.css'
-import { useNavigate, Link } from 'react-router'
+import { Link } from 'react-router'
 import useGetPosts from '../../hooks/useGetPosts.js'
 
 export default function Content() {

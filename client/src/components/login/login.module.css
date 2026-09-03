@@ -47,3 +47,11 @@
 	width: 50%;
 	margin-bottom: .5rem;
 }
+
+.loginPage > span > a {
+	color: white;
+}
+
+.loginPage > span > a:visited {
+	color: white;
+}

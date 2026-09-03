@@ -21,8 +21,6 @@ export default function Post() {
 	if (error) {
 		return (
 			<div className="error">
-				<span>An error has occurred</span>
-
 				<p>{error}</p>
 			</div>
 		)
@@ -47,15 +45,12 @@ export default function Post() {
 			const data = await res.json()
 
 			if (data.success != true) {
-				if (res.status == 500) {
-					return toast.error("Server error")
-				}
 				return toast.error(data.message)
 			}
-			navigate(0)
-			return toast.success("Comment success")
+			toast.success("Comment success")
+			return navigate(0)
 		} catch (e) {
-			return toast.error(e)
+			return toast.error("Something went wrong. Please try again later.")
 		}
 	}
 
@@ -83,12 +78,12 @@ export default function Post() {
 			</main>
 			<section className={styles.commentSection}>
 				<h2>Comments</h2>
-				<form className={styles.commentForm}>
+				<form onSubmit={handleComment} className={styles.commentForm}>
 					<div>
 						<label htmlFor="comment"></label>
 						<input type="text" name="comment" placeholder="Comment" onChange={(e) => setComment(e.target.value)} />
 					</div>
-					<button onClick={handleComment}>Comment</button>
+					<button>Comment</button>
 				</form>
 				<div className={styles.comments}>
 					{commentList}

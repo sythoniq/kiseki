@@ -1,6 +1,6 @@
 .postPage {
-	display: grid;
-	grid-template: auto / 1fr .2fr;
+	display: flex;
+	flex-direction: column;
 	color: white;
 	padding: 2em;
 	gap: .5em;
@@ -12,8 +12,8 @@
 	overflow: scroll;
 	gap: 1.2em;
 	padding: 1.2em .2em;
-	height: 90%;
-	border-right: 5px solid white;
+	height: 100%;
+	border-bottom: 5px solid white;
 }
 
 .postDetails {
@@ -79,3 +79,4 @@
 	flex-direction: column;
 	gap: 1.2rem;
 }
+

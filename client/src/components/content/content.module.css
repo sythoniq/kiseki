@@ -18,11 +18,13 @@
 
 .postCard > a {
 	text-decoration: none;
-	color: blue;
+	color: white;
+	font-weight: 800;
+	font-size: 1.2rem;
 }
 
 .postCard > a:visited {
-	color: blue;
+	color: white;
 }
 
 .categoryTag {

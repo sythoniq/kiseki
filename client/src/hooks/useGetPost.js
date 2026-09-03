@@ -12,6 +12,11 @@ export default function useGetPost(postId) {
 		async function getPost() {
 			try {
 				const res = await fetch(`${API}/posts/${postId}`);
+				if (res.status >= 500) {
+					setLoading(false)
+					setError("Something went wrong. Please try again.")
+					return;
+				}
 				const data = await res.json()
 				if (data.success != true) {
 					setError(data.message)
@@ -22,12 +27,14 @@ export default function useGetPost(postId) {
 				setPostComments(data.post.comments)
 				setLoading(false)
 			} catch(e) {
-				setError(e.message)
+				setLoading(false)
+				setError("Something went wrong. Please try again")
+				return;
 			}
 		}
 
 		getPost()
-	}, [postId])
+	}, [API, postId])
 
 	return [ post, postComments, loading, error ]
 }

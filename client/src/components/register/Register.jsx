@@ -50,7 +50,7 @@ export default function Register() {
 	return (
 		<main className={styles.registerPage}>
 			<h2>Register</h2>
-			<form className={styles.registerForm}>
+			<form onSubmit={handleRegister} className={styles.registerForm}>
 				<div>
 					<label>Username</label>
 					<input type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
@@ -60,10 +60,10 @@ export default function Register() {
 					<input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
 				</div>
 
-				<button onClick={handleRegister}>Sign up</button>
+				<button>Sign up</button>
 			</form>
 			<span className={styles.splitLine}></span>
-			<span>Already have an account?<a href="/login">Sign in</a></span>
+			<span>Already have an account? <a href="/login">Sign in</a></span>
 		</main>
 	)
 }

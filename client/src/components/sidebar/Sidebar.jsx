@@ -1,15 +1,12 @@
-import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router'
-import toast from 'react-hot-toast'
 import styles from './sidebar.module.css'
 
 import useGetPosts from '../../hooks/useGetPosts.js'
-import useGetUser from '../../hooks/useGetUser.js'
 
 export default function Sidebar(props) {
 	const navigate = useNavigate()
 	const user = props.userObj;
-	const [ posts, postCategories, isLoading, isError ] = useGetPosts()
+	const [ posts, postCategories, loading, error ] = useGetPosts()
 
 	function handleLogin(e) {
 		e.preventDefault()
@@ -27,14 +24,18 @@ export default function Sidebar(props) {
 		return props.userSet(null)
 	}
 
-	if (isLoading) {
+	if (loading) {
 		return (
 			<span className="loader"></span>
 		)
 	}
 
-	if (isError) {
-		return toast.error(`${isError}`)	
+	if (error) {
+		return (
+			<div className="error">
+				<p>{error}</p>
+			</div>
+		)
 	}
 
 	const categList = postCategories.map(categ => 

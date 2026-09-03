@@ -14,6 +14,12 @@ export default function useGetPosts() {
 				const res = await fetch(`${API}/posts`)
 				const data = await res.json()
 
+				if (res.status >= 500) {
+					setIsError("Something went wrong. Please try again.")
+					setIsLoading(false)
+					return;
+				}
+
 				if (data.success == false) {
 					setIsError(data.message)
 					setIsLoading(false)
@@ -24,8 +30,9 @@ export default function useGetPosts() {
 				setPostCategories(data.posts.map((post)=> post.post_category))
 				setIsLoading(false);
 			} catch(e) {
-				setIsError(e.message)
+				setIsError("Something went wrong. Please try again.")
 				setIsLoading(false)
+				return;
 			}
 		}
 

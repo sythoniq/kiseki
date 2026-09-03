@@ -10,35 +10,49 @@ export default function useGetUser() {
 	useEffect(() => {
 		let active = false;
 		async function getUser() {
-			if (token == null || token == undefined) {
-				setLoading(false)
-				return;
-			}
-			const res = await fetch(`${API}/`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					"Authorization": token
+			try {
+
+				if (token == null || token == undefined) {
+					setLoading(false)
+					return;
 				}
-			})
-			const data = await res.json()
+				const res = await fetch(`${API}/`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": token
+					}
+				})
 
-			if (data.success != true) {
-				setError(data.message)
+				if (res.status >= 500) {
+					setLoading(false)
+					setError("Something went wrong. Please try again.")
+					return;
+				}
+				const data = await res.json()
+
+				if (active) {
+					if (data.success != true) {
+						setError(data.message)
+						setLoading(false)
+						return;
+					}
+
+					if (data.user == null) {
+						setLoading(false)
+						setError(null)
+						setUser(null)
+						return;
+					}
+
+					setUser(data.user)
+					setLoading(false)
+					return;
+				}
+			} catch(e) {
 				setLoading(false)
-				return;
+				setError("Something went wrong. Please try again.")
 			}
-
-			if (data.user == null) {
-				setLoading(false)
-				setError(null)
-				setUser(null)
-				return;
-			}
-
-			setUser(data.user)
-			setLoading(false)
-			return;
 		}
 
 		getUser()
@@ -46,7 +60,7 @@ export default function useGetUser() {
 		return () => {
 			active = true;
 		}
-	}, [API])
+	}, [API, token])
 
 	return [ user, loading, error, setUser ]
 }
