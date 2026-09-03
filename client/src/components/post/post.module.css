@@ -4,15 +4,15 @@
 	color: white;
 	padding: 2em;
 	gap: .5em;
+	height: 100%;
+	overflow: scroll;
 }
 
 .post {
 	display: flex;
 	flex-direction: column;
-	overflow: scroll;
 	gap: 1.2em;
 	padding: 1.2em .2em;
-	height: 100%;
 	border-bottom: 5px solid white;
 }
 
@@ -79,6 +79,5 @@
 	display: flex;
 	flex-direction: column;
 	gap: 1.2rem;
-	overflow: scroll;
 }
 
