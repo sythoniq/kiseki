@@ -34,7 +34,7 @@ export default function useGetPost(postId) {
 		}
 
 		getPost()
-	}, [API, postId])
+	}, [API])
 
 	return [ post, postComments, loading, error ]
 }

@@ -60,7 +60,7 @@ export default function useGetUser() {
 		return () => {
 			active = true;
 		}
-	}, [API, token])
+	}, [API])
 
 	return [ user, loading, error, setUser ]
 }
