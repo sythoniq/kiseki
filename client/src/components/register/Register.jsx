@@ -1,7 +1,7 @@
 import styles from './register.module.css'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, Link } from 'react-router'
 
 export default function Register() {
 	const API = import.meta.env.VITE_BASE_API
@@ -63,7 +63,7 @@ export default function Register() {
 				<button>Sign up</button>
 			</form>
 			<span className={styles.splitLine}></span>
-			<span>Already have an account? <a href="/login">Sign in</a></span>
+			<span>Already have an account? <Link to="/login">Sign in</Link></span>
 		</main>
 	)
 }

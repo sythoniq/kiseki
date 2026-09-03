@@ -35,7 +35,6 @@ export default function Login() {
 				return toast.error(`${data.message}`)
 			}
 			localStorage.setItem("jwt-token", data.token)
-			toast.success("Success")
 			window.location.href = "/"
 			return;
 		} catch(e) {
@@ -59,7 +58,7 @@ export default function Login() {
 				<button>Login</button>
 			</form>
 			<span className={styles.splitLine}></span>
-			<span>Don't have an account? <a href="/register">Sign up</a></span>
+			<span>Don't have an account? <Link to="/register">Sign up</Link></span>
 		</main>
 	)
 }

@@ -38,6 +38,7 @@ export default function Sidebar(props) {
 		)
 	}
 
+	console.log(postCategories)
 	const categList = postCategories.map(categ => 
 		<div key={postCategories.indexOf(categ)}>{categ}</div>	
 	)

@@ -9,26 +9,29 @@ export default function useGetPosts() {
 	const [ postCategories, setPostCategories ] = useState()
 
 	useEffect(() => {
+		let active = false;
 		async function getPosts() {
 			try {
 				const res = await fetch(`${API}/posts`)
 				const data = await res.json()
 
-				if (res.status >= 500) {
-					setIsError("Something went wrong. Please try again.")
-					setIsLoading(false)
-					return;
-				}
+				if (active) {
+					if (res.status >= 500) {
+						setIsError("Something went wrong. Please try again.")
+						setIsLoading(false)
+						return;
+					}
 
-				if (data.success == false) {
-					setIsError(data.message)
-					setIsLoading(false)
-					return;
-				}
+					if (data.success == false) {
+						setIsError(data.message)
+						setIsLoading(false)
+						return;
+					}
 
-				setPosts(data.posts);
-				setPostCategories(data.posts.map((post)=> post.post_category))
-				setIsLoading(false);
+					setPosts(data.posts);
+					setPostCategories([...new Set(data.posts.map((post)=> post.post_category))])
+					setIsLoading(false);
+				}
 			} catch(e) {
 				setIsError("Something went wrong. Please try again.")
 				setIsLoading(false)
@@ -37,6 +40,10 @@ export default function useGetPosts() {
 		}
 
 		getPosts()
+
+		return () => {
+			active = true;
+		}
 	}, [API])
 
 	return [ posts, postCategories, isLoading, isError ]
