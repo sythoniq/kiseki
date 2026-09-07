@@ -8,7 +8,7 @@ const validateUser = [
 ]
 
 const validatePost = [
-	param("postId").isInt().withMessage("Invalid post ID!"),
+	param("postId").isInt().withMessage("Invalid post ID!").optional(),
 	body("title").notEmpty().withMessage("Post title not provided!"),
 	body("content").notEmpty().withMessage("Content not provided!"),
 	body("category").notEmpty().withMessage("Category not provided!")

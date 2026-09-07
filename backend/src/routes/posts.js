@@ -13,8 +13,8 @@ posts.post("/:postId/comment", auth.validateUser, controller.postComment)
 posts.post("/upload", auth.validateUser, auth.validateAuthor, controller.uploadPost)
 posts.put("/:postId/update", auth.validateUser, auth.validateAuthor, controller.updatePost)
 posts.delete("/:postId/delete", auth.validateUser, controller.deletePost)
-posts.post("/:postId/publish", auth.validateUser, auth.validateAuthor, controller.publishPost)
-posts.post("/:postId/unpublish", auth.validateUser, auth.validateAuthor, controller.unpublishPost);
+posts.put("/:postId/publish", auth.validateUser, auth.validateAuthor, controller.publishPost)
+posts.put("/:postId/unpublish", auth.validateUser, auth.validateAuthor, controller.unpublishPost);
 posts.delete("/:postId/comment/:commentId", auth.validateUser, controller.deletePostComment)
 
 module.exports = posts
