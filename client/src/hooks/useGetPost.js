@@ -6,7 +6,6 @@ export default function useGetPost(postId) {
 	const [ loading, setLoading ] = useState(true)	
 	const [ error, setError ] = useState(null)
 	const [ post, setPost ] = useState(null)
-	const [ postComments, setPostComments ] = useState(null)
 
 	useEffect(() => {
 		async function getPost() {
@@ -24,7 +23,6 @@ export default function useGetPost(postId) {
 					return;
 				}
 				setPost(data.post)
-				setPostComments(data.post.comments)
 				setLoading(false)
 			} catch(e) {
 				setLoading(false)
@@ -36,5 +34,5 @@ export default function useGetPost(postId) {
 		getPost()
 	}, [API, postId])
 
-	return [ post, postComments, loading, error ]
+	return [ post, loading, error ]
 }

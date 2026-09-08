@@ -31,6 +31,7 @@ export default function Sidebar(props) {
 	}
 
 	if (error) {
+		console.log(error)
 		return (
 			<div className="error">
 				<p>{error}</p>

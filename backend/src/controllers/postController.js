@@ -34,19 +34,6 @@ const getPost = [
 
 			const post = await prisma.post.findUnique({
 				where: { post_id: Number(data.postId), published: true },
-				include: {
-					comments: {
-						select: {
-							comment_id: true,
-							comment_content: true,
-							author: {
-								select: {
-									user_name: true
-								},
-							}
-						}
-					}
-				}
 			})
 
 			if (!post) {
@@ -84,36 +71,6 @@ const uploadPost = [
 	}
 ]
 
-const postComment = [
-	validator.validateId,
-	validator.validateComment,
-	async function postComment(req, res, next) { 
-		try {
-			const result = validator.validate(req, res)
-			if (!result.success) return;
-			const data = result.data
-				
-			const postResult = getPostById(Number(data.postId))
-			if (!postResult.success) {
-				return res.status(404).json({ success: false, message: "Post not found!"})
-			}
-
-			const comment = await prisma.comment.create({
-				data: {
-					comment_content: data.content,
-					author_id: Number(req.user.user_id),
-					post_id: Number(data.postId) 
-				}
-			}) 
-
-			return res.status(200).json({success: true, message: "Comment posted successfully", comment})
-		} catch(err) {
-			return res.status(500).json({success: false, message: "Server Error!"}); 
-		} 
-	}
-]
-
-
 const deletePost = [
 	validator.validateId,
 	async function deletePost(req, res, next) {
@@ -146,42 +103,6 @@ const deletePost = [
 			return res.status(200).json({success: true, message: "Post deleted!"})
 		} catch(err) {
 			return res.status(500).json({success: false, message: "Server Error!"});
-		}
-	}
-]
-
-const deletePostComment = [
-	validator.validateId,
-	async function deletePostComment(req, res, next) {
-		try {
-			const result = validator.validate(req, res)
-			if (!result.success) return;
-			const data = result.data
-
-
-			const comment = await prisma.comment.findUnique({
-				where: {
-					comment_id: Number(data.commentId)
-				}
-			});
-
-			if (!comment) {
-				return res.status(404).json({success: false, message: "Comment not found!"})
-			}
-
-			if (comment.author_id != req.user.user_id && !req.user.admin) {
-				return res.status(403).json({success: false, message: "Unauthorized!"})
-			}
-
-			await prisma.comment.delete({
-				where: {
-					comment_id: Number(req.params.commentId)
-				}
-			})
-
-			return res.status(200).json({success: true, message: "Comment deleted!"})
-		} catch (err) {
-			return res.status(500).json({success: false, message: "Server Error"}) 
 		}
 	}
 ]
@@ -303,9 +224,7 @@ module.exports = {
   getPost,
   uploadPost,
   updatePost,
-  postComment,
   deletePost,
-  deletePostComment,
   publishPost,
   unpublishPost
 }

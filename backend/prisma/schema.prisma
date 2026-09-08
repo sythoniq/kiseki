@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -10,35 +5,25 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model User { 
-  user_id    Int     @id @default(autoincrement()) 
-  user_name  String  @unique
-  user_hash  String
-  author Boolean @default(false)
-	admin	 Boolean @default(false)
-  posts Post[]
-  comments Comment[]
-} 
+model User {
+  author    Boolean   @default(false)
+  user_hash String
+  user_id   Int       @id @default(autoincrement())
+  user_name String    @unique
+  admin     Boolean   @default(false)
+  posts     Post[]
+}
 
-model Post { 
-  post_id        Int     @id @default(autoincrement()) 
-  post_title     String
-  post_content   String
-	post_category	 String
-  published Boolean @default(false) 
-  uploadedAt DateTime @default(now())
-  author    User    @relation(fields: [author_id], references: [user_id]) 
-  author_id  Int
-  comments  Comment[]
-} 
-
-model Comment {
-  comment_id        Int     @id @default(autoincrement())
-  comment_content   String  
-  author    User    @relation(fields: [author_id], references: [user_id])
-  author_id  Int
-  post      Post    @relation(fields: [post_id], references: [post_id])
-  post_id    Int
+model Post {
+  published     Boolean   @default(false)
+  uploadedAt    DateTime  @default(now())
+  author_id     Int
+  post_content  String
+  post_id       Int       @id @default(autoincrement())
+  post_title    String
+  post_category String
+  author        User      @relation(fields: [author_id], references: [user_id])
 }

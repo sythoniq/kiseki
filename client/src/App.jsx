@@ -21,7 +21,7 @@ export default function App() {
 			</div>
 		)
 	}
-	
+		
 	return (
 		<>
 			<Sidebar userSet={setUser} userObj={user} />

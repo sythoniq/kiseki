@@ -3,14 +3,12 @@ import { useNavigate, useParams } from 'react-router'
 import toast from 'react-hot-toast'
 import styles from './post.module.css'
 import useGetPost from '../../hooks/useGetPost.js'
-import Comment from '../comment/Comment.jsx'
 
 export default function Post() {
 	const API = import.meta.env.VITE_BASE_API
 	const navigate = useNavigate()
 	const postId = Number(useParams().postId)
-	const [ post, postComments, loading, error ] = useGetPost(postId)
-	const [ comment, setComment ] = useState()
+	const [ post, loading, error ] = useGetPost(postId)
 
 	if (loading) {
 		return (
@@ -25,38 +23,6 @@ export default function Post() {
 			</div>
 		)
 	}
-
-	async function handleComment(e) {
-		e.preventDefault()
-		try {
-			if (!comment) {
-				return toast.error("Comment is empty!")
-			}
-
-			const res = await fetch(`${API}/posts/${postId}/comment`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					"Authorization": localStorage.getItem("jwt-token")
-				},
-				body: JSON.stringify({content: comment})
-			})
-
-			const data = await res.json()
-
-			if (data.success != true) {
-				return toast.error(data.message)
-			}
-			toast.success("Comment success")
-			return navigate(0)
-		} catch (e) {
-			return toast.error("Something went wrong. Please try again later.")
-		}
-	}
-
-	const commentList = postComments.map((comment) => 
-		<Comment key={comment.comment_id} comment={comment} />
-	)
 
 	return (
 		<section className={styles.postPage}>
@@ -76,19 +42,6 @@ export default function Post() {
 					{post.post_content}
 				</div>
 			</main>
-			<section className={styles.commentSection}>
-				<h2>Comments</h2>
-				<form onSubmit={handleComment} className={styles.commentForm}>
-					<div>
-						<label htmlFor="comment"></label>
-						<input type="text" name="comment" placeholder="Comment" onChange={(e) => setComment(e.target.value)} />
-					</div>
-					<button>Comment</button>
-				</form>
-				<div className={styles.comments}>
-					{commentList}
-				</div>
-			</section>
 		</section>
 	)
 }
