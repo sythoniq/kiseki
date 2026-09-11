@@ -3,6 +3,7 @@ import Content from '../components/content/Content.jsx'
 import Post from '../components/post/Post.jsx'
 import Login from '../components/login/Login.jsx'
 import Register from '../components/register/Register.jsx'
+import AuthorPage from '../components/author/AuthorPage.jsx'
 
 const routes = [
 	{
@@ -24,6 +25,10 @@ const routes = [
 			{
 				path: "/register",
 				element: <Register />
+			},
+			{
+				path: "/author",
+				element: <AuthorPage />
 			}
 		]
 	}

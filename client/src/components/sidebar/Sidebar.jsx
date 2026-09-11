@@ -52,6 +52,11 @@ export default function Sidebar(props) {
 			<main className={styles.categories}>
 				{categList}	
 			</main>
+			{user.author && 
+				<div className={styles.authorLink}>
+					<span>Visit <Link to="/author">author page!</Link></span>
+				</div>
+			}
 			<div className={styles.user}>
 				{ user ? (
 					<div className={styles.loggedIn}>

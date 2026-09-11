@@ -83,3 +83,12 @@
 .logIn > span > button:hover {
 	box-shadow: 2px 2px 5px 2px rgba(255, 255, 255, 0.9);
 }
+
+.authorLink > span {
+	font-size: 1.2em;
+	font-weight: 600;
+}
+
+.authorLink > span > a {
+	color: rgba(189, 100, 150, 0.7);
+}
