@@ -24,6 +24,16 @@ async function getPosts(req, res, next) {
   } 
 }
 
+async function getAllPosts(req, res, next) {
+	try {
+		const posts = await prisma.post.findMany({})
+
+		return res.status(200).json({ success: true, posts })
+	} catch(err) {
+		return res.status(500).json({ success: false, message: "Server Error"})
+	}
+}
+
 const getPost = [
 	validator.validateId,
 	async function getPost(req, res, next) {
@@ -33,7 +43,7 @@ const getPost = [
 			const data = result.data
 
 			const post = await prisma.post.findUnique({
-				where: { post_id: Number(data.postId), published: true },
+				where: { post_id: Number(data.postId) },
 			})
 
 			if (!post) {
@@ -222,6 +232,7 @@ const unpublishPost = [
 module.exports = {
   getPosts,
   getPost,
+	getAllPosts,
   uploadPost,
   updatePost,
   deletePost,

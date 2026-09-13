@@ -5,6 +5,7 @@ const auth = require("../configs/middleware.js")
 const controller = require("../controllers/postController.js")
 
 posts.get("/", controller.getPosts)
+posts.get("/author", auth.validateUser, auth.validateAuthor, controller.getAllPosts)
 posts.get("/:postId", controller.getPost)
 
 

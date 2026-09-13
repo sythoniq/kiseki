@@ -12,9 +12,8 @@ body, html {
 #root {
 	height: 100%;
 	width: 100%;
-	display: grid;
-	grid-template: auto / 350px 1fr;
-	column-gap: 2rem;
+	display: flex;
+	gap: 1.5em;
 	background-color: rgba(0, 0, 0, 0.8);
 }
 

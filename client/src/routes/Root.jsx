@@ -4,6 +4,7 @@ import Post from '../components/post/Post.jsx'
 import Login from '../components/login/Login.jsx'
 import Register from '../components/register/Register.jsx'
 import AuthorPage from '../components/author/AuthorPage.jsx'
+import AuthorPost from '../components/author/AuthorPost.jsx'
 
 const routes = [
 	{
@@ -25,10 +26,19 @@ const routes = [
 			{
 				path: "/register",
 				element: <Register />
+			}
+		]
+	},
+	{
+		path: "/author",
+		children: [
+			{
+				index: true,
+				element: <AuthorPage />
 			},
 			{
-				path: "/author",
-				element: <AuthorPage />
+				path: "/author/posts/:postId",
+				element: <AuthorPost />
 			}
 		]
 	}

@@ -1,0 +1,78 @@
+.authorPage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	gap: 3em;
+	padding: 1.5em;
+}
+
+.allPosts {
+	width: 100%;
+	padding: 0;
+}
+
+.authorHeader {
+	display: flex;
+	gap: 4.5em;
+	padding: .69em 1em;
+	border-radius: 12px;
+	box-shadow: 1px 1px 10px 5px rgba(255, 255, 255, 0.3);
+}
+
+.authorHeader a {
+	color: white;
+	text-decoration: none;
+	font-size: 1.25rem;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.authorHeader a:last-child {
+	border-bottom: none;
+}
+
+.postCard {
+	padding-bottom: 1em;
+	border-bottom: 1px solid white;
+	max-width: 100%;
+	font-size: 1em;
+	display: flex;
+	gap: 2em;	
+	text-wrap: wrap;
+	align-items: center;
+}
+
+.postCard > a {
+	text-decoration: none;
+	color: white;
+	font-weight: 800;
+	font-size: 1.2rem;
+}
+
+.postCard > a:visited {
+	color: white;
+}
+
+.categoryTag, .published, .unpublished {
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: white;
+	background-color: rgba(0, 150, 255, 0.7);
+	padding: 0 .5em;
+	border-radius: 12px;
+}
+
+.postDate {
+	color: black;
+	padding: 0 .5em;
+	font-size: 1.2rem;
+	border-radius: 12px;
+}
+
+.published {
+	background-color: rgba(0, 200, 150, 0.7);
+}
+
+.unpublished {
+	background-color: rgba(200, 150, 0, 0.7);
+}
