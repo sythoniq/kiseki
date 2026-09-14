@@ -1,13 +1,13 @@
-import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
-import styles from './post.module.css'
-import useGetPost from '../../hooks/useGetPost.js'
+import styles from "./content.module.css"
+import toast from 'react-hot-toast'
+import { useParams } from 'react-router'
 
-export default function Post() {
-	const API = import.meta.env.VITE_BASE_API
-	const navigate = useNavigate()
-	const postId = Number(useParams().postId)
-	const [ post, loading, error ] = useGetPost(postId)
+import useGetPost from '../../../hooks/useGetPost.js'
+
+export default function PostPage() {
+	const postId = useParams().postId
+
+	const [post, loading, error] = useGetPost(postId)
 
 	if (loading) {
 		return (
@@ -24,7 +24,7 @@ export default function Post() {
 	}
 
 	return (
-		<section className={styles.postPage}>
+		<section className={styles.content}>
 			<main className={styles.post}>
 				<div className={styles.postDetails}>
 					<div>

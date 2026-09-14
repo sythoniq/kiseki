@@ -3,8 +3,10 @@ import Content from '../components/content/Content.jsx'
 import Post from '../components/post/Post.jsx'
 import Login from '../components/login/Login.jsx'
 import Register from '../components/register/Register.jsx'
-import AuthorPage from '../components/author/AuthorPage.jsx'
-import AuthorPost from '../components/author/AuthorPost.jsx'
+
+import Author from '../components/author/Author.jsx'
+import Index from '../components/author/index/Index.jsx'
+import PostPage from '../components/author/content/Content.jsx'
 
 const routes = [
 	{
@@ -31,14 +33,15 @@ const routes = [
 	},
 	{
 		path: "/author",
+		element: <Author />,
 		children: [
 			{
 				index: true,
-				element: <AuthorPage />
+				element: <Index />
 			},
 			{
 				path: "/author/posts/:postId",
-				element: <AuthorPost />
+				element: <PostPage />
 			}
 		]
 	}

@@ -1,9 +1,8 @@
-.mainContent {
+.allPosts {
+	width: 90%;
 	display: flex;
 	flex-direction: column;
-	gap: 2em;
-	padding: 3em;
-	width: 100%;
+	gap: 3em;
 }
 
 .postCard {
