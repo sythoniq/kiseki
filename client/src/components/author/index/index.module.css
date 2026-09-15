@@ -27,7 +27,7 @@
 	color: white;
 }
 
-.categoryTag {
+.categoryTag, .published, .unpublished {
 	font-size: 1.5rem;
 	font-weight: 600;
 	color: white;
@@ -42,3 +42,13 @@
 	font-size: 1.2rem;
 	border-radius: 12px;
 }
+
+.published {
+	background-color: rgba(100, 200, 100, 0.5)
+}
+
+.unpublished {
+	background-color: rgba(200, 100, 100, 0.5);
+}
+
+

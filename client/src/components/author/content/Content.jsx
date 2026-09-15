@@ -23,6 +23,14 @@ export default function PostPage() {
 		)
 	}
 
+	async function handlePublish() {
+
+	}
+	
+	async function handleUnpublish() {
+
+	}
+
 	return (
 		<section className={styles.content}>
 			<main className={styles.post}>
@@ -34,6 +42,13 @@ export default function PostPage() {
 							)}
 						</span>	
 						<span className={styles.postCateg}>{post.post_category}</span>
+						<div className={styles.postState}>
+							{post.published ? (
+								<button className={styles.unpubBtn} onClick={handleUnpublish}>Unpublish</button>
+							) : (
+									<button className={styles.pubBtn} onClick={handlePublish}>Publish</button>
+								)}
+						</div>
 					</div>
 					<h2>{post.post_title}</h2>
 				</div>

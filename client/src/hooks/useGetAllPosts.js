@@ -17,7 +17,6 @@ export default function useGetAllPosts() {
 					}
 				})
 				const data = await res.json()
-
 				if (active) {
 					if (res.status >= 500) {
 						setIsError("Something went wrong. Please try again.")

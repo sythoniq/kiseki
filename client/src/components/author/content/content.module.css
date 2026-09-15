@@ -1,0 +1,55 @@
+.content {
+	display: flex;
+	flex-direction: column;
+	color: white;
+	padding: 2em;
+	gap: .5em;
+	overflow: scroll;
+	width: 90%;
+}
+
+.post {
+	display: flex;
+	flex-direction: column;
+	gap: 1.2em;
+	padding: 1.2em .2em;
+	border-bottom: 5px solid white;
+}
+
+.postDetails {
+	display: flex;
+	flex-direction: column;
+	font-size: 1.2rem;
+	gap: 1.2em;
+}
+
+.postDetails > div {
+	display: flex;
+	gap: .6em;
+	font-size: 1.2rem;
+}
+
+.postCateg, .pubBtn, .unpubBtn {
+	font-weight: 600;
+	color: white;
+	background-color: rgba(0, 150, 255, 0.7);
+	padding: 0 .5em;
+	border-radius: 12px;
+}
+
+.postBody {
+	display: flex;
+	flex-direction: column;
+}
+
+.pubBtn, .unpubBtn {
+	font-size: 1em;
+}
+
+.pubBtn {
+	background-color: rgba(100, 200, 100, 0.6);
+}
+
+.unpubBtn {
+	background-color: rgba(200, 100, 100, 0.6);
+}
