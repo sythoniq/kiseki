@@ -23,10 +23,13 @@ export default function Content() {
 			<div className={styles.categoryTag}>{post.post_category}</div>
 		</section>
 	)
-
 	return (
 		<main className={styles.mainContent}>
-			{postsList}	
+			{postsList.length > 0 ? (
+				postsList
+			) : (
+				<span className={styles.noPosts}>No posts as of the moment :) </span>
+			)}	
 		</main>
 	)
 }
