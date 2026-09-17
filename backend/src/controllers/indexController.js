@@ -10,7 +10,7 @@ async function getUser(req, res, next) {
 
 		return res.status(200).json({success: true, message: "User found", user})
 	} catch(e) {
-		return res.status(500).json({success: false, message: e.message})
+		return res.status(500).json({success: false, message: "Server Error!"})
 	}
 }
 
@@ -74,7 +74,7 @@ const handleLogin = [
 
 			return res.status(200).json({success: true, message: "Login successful", token: `Bearer ${token}`})
 		}	catch(e) {
-			return res.status(500).json({success: false, message: e.message})
+			return res.status(500).json({success: false, message: "Server Error!"})
 		}
 	}
 ]
