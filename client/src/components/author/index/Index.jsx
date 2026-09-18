@@ -36,7 +36,11 @@ export default function Index() {
 
 	return (
 		<main className={styles.allPosts}>
-			{postsList}	
+			{postsList.length > 0 ? (
+				postsList		
+			) : ( 
+				<span className={styles.noPosts}>No posts... mind contributing :)</span>
+			)}
 		</main>
 	)
 }

@@ -51,4 +51,14 @@
 	background-color: rgba(200, 100, 100, 0.5);
 }
 
-
+.noPosts {
+	position: absolute;
+	top: 30%;
+	left: 39%;
+	font-size: 1.5em;
+	font-weight: 500;
+	color: white;
+	border-radius: 12px;
+	box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+	padding: 1.2em;
+}
