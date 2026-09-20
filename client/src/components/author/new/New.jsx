@@ -92,19 +92,12 @@ export default function New() {
                 "image",
                 "charmap",
                 "anchor",
-                "searchreplace",
-                "visualblocks",
-                "code",
-                "fullscreen",
-                "insertdatetime",
+                "codesample",
                 "media",
-                "table",
-                "preview",
-                "help",
                 "wordcount",
               ],
               toolbar:
-                "undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+                "undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | codesample",
               content_style:
                 "body { font-family:Helvetica,Arial,sans-serif; font-size:1rem; background-color:#2a323c;color:white;  }",
             }}
