@@ -92,8 +92,7 @@ export default function PostPage() {
 					</div>
 					<h2>{post.post_title}</h2>
 				</div>
-				<div className={styles.postBody}>
-					{post.post_content}
+				<div className={styles.postBody} dangerouslySetInnerHTML={{ __html: post.post_content}}>
 				</div>
 			</main>
 		</section>
