@@ -7,6 +7,7 @@ import Register from '../components/register/Register.jsx'
 import Author from '../components/author/Author.jsx'
 import Index from '../components/author/index/Index.jsx'
 import PostPage from '../components/author/content/Content.jsx'
+import New from '../components/author/new/New.jsx'
 
 const routes = [
 	{
@@ -42,6 +43,10 @@ const routes = [
 			{
 				path: "/author/posts/:postId",
 				element: <PostPage />
+			},
+			{
+				path: "/author/new",
+				element: <New />
 			}
 		]
 	}

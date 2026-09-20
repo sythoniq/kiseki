@@ -29,7 +29,7 @@
 	font-size: 1.2rem;
 }
 
-.postCateg, .pubBtn, .unpubBtn {
+.postCateg, .pubBtn, .unpubBtn, .backBtn {
 	font-weight: 600;
 	color: white;
 	background-color: rgba(0, 150, 255, 0.7);
@@ -44,12 +44,25 @@
 
 .pubBtn, .unpubBtn {
 	font-size: 1em;
+	cursor: pointer;
+	border: none;
 }
 
 .pubBtn {
 	background-color: rgba(100, 200, 100, 0.6);
+	box-shadow: 1px 1px 10px rgba(100, 200, 100, 0.6);
 }
 
 .unpubBtn {
 	background-color: rgba(200, 100, 100, 0.6);
+	box-shadow: 1px 1px 10px rgba(200, 100, 100, 0.6);
+}
+
+.backBtn {
+	background-color: white;
+	color: black;
+	font-size: 1em;
+	text-align: center;
+	cursor: pointer;
+	border: none;
 }
