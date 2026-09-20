@@ -1,17 +1,31 @@
 const { body, param, validationResult, matchedData } = require("express-validator")
+const sanitizeHtml = require("sanitize-html")
+
+const sanitizeOptions = {
+	allowedTags: [ 'b', 'i', 'em', 'strong', 'a' ],
+	allowedAttributes: {
+		'a': ['href']
+	}
+}
 
 const validateUser = [
 	body("username").notEmpty().withMessage("Username not provided!")
 		.isLength({min: 3}).withMessage("Username must be more than 3 characters!"),
 	body("password").notEmpty().withMessage("Password not provided!")
-		.isLength({min: 8}).withMessage("Password must be more than 8 characters!")
+		.isLength({min: 8}).withMessage("Password must be more than 8 characters!"),
 ]
 
 const validatePost = [
 	param("postId").isInt().withMessage("Invalid post ID!").optional(),
-	body("title").notEmpty().withMessage("Post title not provided!"),
-	body("content").notEmpty().withMessage("Content not provided!"),
-	body("category").notEmpty().withMessage("Category not provided!")
+	body("title").notEmpty().withMessage("Post title not provided!").customSanitizer(value => {
+		return sanitizeHtml(value, sanitizeOptions)
+	}),
+	body("content").notEmpty().withMessage("Content not provided!").customSanitizer(value=> {
+		return sanitizeHtml(value, sanitizeOptions)
+	}),
+	body("category").notEmpty().withMessage("Category not provided!").customSanitizer(value=> {
+		return sanitizeHtml(value, sanitizeOptions)
+	})
 ]
 
 const validateComment = [
