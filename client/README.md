@@ -1,1 +1,2 @@
-TODO: Need to implement a way to make sure that sidebar rerender/remounts on login to register the user that has logged in...
+TODO: 
+-- Need to add a way to edit a published post
