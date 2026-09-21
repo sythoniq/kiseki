@@ -74,7 +74,7 @@ export default function PostPage() {
 		<section className={styles.content}>
 			<main className={styles.post}>
 				<div className={styles.postDetails}>
-					<Link to="/author"><button className={styles.backBtn}>Back</button></Link>
+					<Link to="/author"><button>Back</button></Link>
 					<div>
 						<span className={styles.postDate}>
 							{new Date(post.uploadedAt).toLocaleDateString(undefined,
@@ -88,6 +88,9 @@ export default function PostPage() {
 							) : (
 									<button className={styles.pubBtn} onClick={handlePublish}>Publish</button>
 								)}
+						</div>
+						<div>
+							<Link to={`/author/posts/${postId}/edit`}><button className={styles.postEdit}>Edit Post</button></Link>
 						</div>
 					</div>
 					<h2>{post.post_title}</h2>

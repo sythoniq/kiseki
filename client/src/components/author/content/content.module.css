@@ -23,13 +23,17 @@
 	gap: 1.2em;
 }
 
+.postDetails a {
+	width: max-content;
+}
+
 .postDetails > div {
 	display: flex;
 	gap: .6em;
 	font-size: 1.2rem;
 }
 
-.postCateg, .pubBtn, .unpubBtn, .backBtn {
+.postCateg, .pubBtn, .unpubBtn, .backBtn, .postEdit {
 	font-weight: 600;
 	color: white;
 	background-color: rgba(0, 150, 255, 0.7);
@@ -58,11 +62,22 @@
 	box-shadow: 1px 1px 10px rgba(200, 100, 100, 0.6);
 }
 
-.backBtn {
-	background-color: white;
-	color: black;
-	font-size: 1em;
-	text-align: center;
-	cursor: pointer;
+.postDetails > :first-child button {
+	font-size: 1.2rem;
+	color: white;
+	background: transparent;
 	border: none;
+	cursor: pointer;
+}
+
+.postDetails > :first-child button:hover {
+	border-bottom: 1px solid white;
+}
+
+.postEdit {
+	border: none;
+	font-size: 1.2rem;
+	background-color: rgba(100, 200, 100, 0.5);
+	box-shadow: 1px 1px 10px rgba(100, 200, 100, 0.6);
+	cursor: pointer;
 }

@@ -8,6 +8,7 @@ import Author from '../components/author/Author.jsx'
 import Index from '../components/author/index/Index.jsx'
 import PostPage from '../components/author/content/Content.jsx'
 import New from '../components/author/new/New.jsx'
+import Edit from '../components/author/edit/Edit.jsx'
 
 const routes = [
 	{
@@ -47,6 +48,10 @@ const routes = [
 			{
 				path: "/author/new",
 				element: <New />
+			},
+			{
+				path: "/author/posts/:postId/edit",
+				element: <Edit />
 			}
 		]
 	}

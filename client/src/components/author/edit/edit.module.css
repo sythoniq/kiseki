@@ -1,0 +1,68 @@
+.editPost {
+	color: white;
+	display: flex;
+	flex-direction: column;
+	gap: 1.2em;
+}
+
+.pageTop {
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+	padding: .5em 1em;
+}
+
+.pageTop button {
+	font-size: 1.2rem;
+	color: white;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.pageTop button:hover {
+	border-bottom: 1px solid white;
+}
+
+.postForm {
+	display: flex;
+	flex-direction: column;
+	padding: .5em 1em;
+	gap: 1.2rem;
+}
+
+.postForm button {
+	align-self: center;
+	cursor: pointer;
+	padding: 0 .5em;
+	font-size: 1.5em;
+	font-weight: 600;
+	background: transparent;
+	border: none;
+	border-bottom: 1px solid black;
+	color: white;
+}
+
+.postTop {
+	display: flex;
+	max-width: 840px;
+	gap: 1.2em;
+}
+
+.postTop div {
+	display: flex;
+	gap: .5em;
+	font-size: 1.2em;
+}
+
+.postTop div input {
+	padding: 0em .5em;
+	background: transparent;
+	border: none;
+	border-bottom: 1px solid white;
+	color: white;
+}
+
+.postTop div input:focus {
+	outline: none;
+}
