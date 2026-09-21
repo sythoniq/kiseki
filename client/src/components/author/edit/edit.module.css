@@ -1,13 +1,18 @@
 .editPost {
+	width: 90%;
 	color: white;
 	display: flex;
 	flex-direction: column;
 	gap: 1.2em;
+	overflow: scroll;
+	padding: 0 1.2em;
+	overflow-x: hidden;
 }
 
 .pageTop {
+	width: 100%;
 	display: flex;
-	gap: 2rem;
+	gap: 45%;
 	align-items: center;
 	padding: .5em 1em;
 }

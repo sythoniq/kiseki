@@ -80,8 +80,7 @@ export default function Edit() {
 					onInit={(_evt, editor) => (editorRef.current = editor)}
 					initialValue={post.post_content}
 					init={{
-						height: 500,
-						width: "99%",
+						height: "100%",
 						menubar: false,
 						skin: "oxide-dark",
 
@@ -97,11 +96,16 @@ export default function Edit() {
 							"codesample",
 							"media",
 							"wordcount",
+							"autoresize"
 						],
 						toolbar:
-						"undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | codesample",
+						"undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | codesample image",
 						content_style:
 						"body { font-family:Helvetica,Arial,sans-serif; font-size:1rem; background-color:#2a323c;color:white;  }",
+						min_height: 300,
+						autoresize_bottom_margin: 20,
+						autoresize_overflow_padding: 10,
+						statusbar: false,
 					}}
 				/>
 				<button>Save</button>

@@ -18,7 +18,7 @@ export default function New() {
 
 	async function handlePostSave(e) {
 		e.preventDefault()
-		
+
 		if (title.length <= 0) {
 			return toast.error("Title cannot be empty.")
 		}	else if (body.length <= 0) {
@@ -71,37 +71,41 @@ export default function New() {
 					</div>
 				</section>
 				<Editor
-            onEditorChange={(postBody) => {
-              setBody(postBody);
-            }}
-            apiKey={TINY_API}
-            onInit={(_evt, editor) => (editorRef.current = editor)}
-            initialValue="<p>Scribble blog body here...</p>"
-            init={{
-              height: 500,
-              width: "99%",
-              menubar: false,
-              skin: "oxide-dark",
+					onEditorChange={(postBody) => {
+						setBody(postBody);
+					}}
+					apiKey={TINY_API}
+					onInit={(_evt, editor) => (editorRef.current = editor)}
+					initialValue="<p>Scribble blog body here...</p>"
+					init={{
+						height: "100%",
+						menubar: false,
+						skin: "oxide-dark",
 
-              content_css: "dark",
-              plugins: [
-                "advlist",
-                "autolink",
-                "lists",
-                "link",
-                "image",
-                "charmap",
-                "anchor",
-                "codesample",
-                "media",
-                "wordcount",
-              ],
-              toolbar:
-                "undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | codesample",
-              content_style:
-                "body { font-family:Helvetica,Arial,sans-serif; font-size:1rem; background-color:#2a323c;color:white;  }",
-            }}
-          />
+						content_css: "dark",
+						plugins: [
+							"advlist",
+							"autolink",
+							"lists",
+							"link",
+							"image",
+							"charmap",
+							"anchor",
+							"codesample",
+							"media",
+							"wordcount",
+							"autoresize"
+						],
+						toolbar:
+						"undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | codesample image",
+						content_style:
+						"body { font-family:Helvetica,Arial,sans-serif; font-size:1rem; background-color:#2a323c;color:white;  }",	
+						min_height: 300,
+						autoresize_bottom_margin: 20,
+						autoresize_overflow_padding: 10,
+						statusbar: false,
+					}}
+				/>
 				<button>Save</button>
 			</form>
 		</main>
