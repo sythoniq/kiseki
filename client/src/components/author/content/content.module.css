@@ -33,7 +33,7 @@
 	font-size: 1.2rem;
 }
 
-.postCateg, .pubBtn, .unpubBtn, .backBtn, .postEdit {
+.postCateg, .pubBtn, .unpubBtn, .backBtn, .postEdit, .postDelete {
 	font-weight: 600;
 	color: white;
 	background-color: rgba(0, 150, 255, 0.7);
@@ -80,4 +80,12 @@
 	background-color: rgba(100, 200, 100, 0.5);
 	box-shadow: 1px 1px 10px rgba(100, 200, 100, 0.6);
 	cursor: pointer;
+}
+
+.postDelete {
+	font-size: 1.2rem;
+	background-color: rgba(200, 50, 50, 0.8);
+	border: none;
+	cursor: pointer;
+	box-shadow: 1px 1px 10px rgba(250, 150, 150, 0.6);
 }

@@ -26,6 +26,7 @@ export default function New() {
 		}	else if (category.length <= 0) {
 			return toast.error("Category cannot be empty.")
 		}
+		editorRef.current.uploadImages()
 
 		try {
 			const res = await fetch(`${API}/posts/upload`, {
@@ -47,6 +48,7 @@ export default function New() {
 			}
 
 			toast.success(data.message)
+			return;
 			return navigate("/author")
 		} catch(e) {
 			return toast.error("Something went wrong!")
@@ -104,6 +106,8 @@ export default function New() {
 						autoresize_bottom_margin: 20,
 						autoresize_overflow_padding: 10,
 						statusbar: false,
+						automatic_uploads: false,
+						images_upload_handler: handleImage
 					}}
 				/>
 				<button>Save</button>

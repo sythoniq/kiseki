@@ -1,6 +1,6 @@
 import styles from "./content.module.css"
 import toast from 'react-hot-toast'
-import { useParams, Link } from 'react-router'
+import { useParams, useNavigate, Link } from 'react-router'
 import { useState } from 'react'
 
 import useGetPost from '../../../hooks/useGetPost.js'
@@ -8,6 +8,7 @@ import useGetPost from '../../../hooks/useGetPost.js'
 export default function PostPage() {
 	const API = import.meta.env.VITE_BASE_API
 	const TOKEN = localStorage.getItem("jwt-token")
+	const navigate = useNavigate()
 
 	const postId = useParams().postId
 	const [post, loading, error] = useGetPost(postId)
@@ -71,6 +72,27 @@ export default function PostPage() {
 		}
 	}
 
+	async function handleDelete() {
+		try {
+			const res = await fetch(`${API}/posts/${postId}/delete`, {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": TOKEN,
+				}
+			})
+			const data = await res.json()
+
+			if (!data.success) {
+				return toast.error(data.message)
+			}
+
+			return navigate("/author")
+		} catch(e) {
+			return toast.error("Something went wrong!")
+		}
+	}
+
 	return (
 		<section className={styles.content}>
 			<main className={styles.post}>
@@ -92,6 +114,9 @@ export default function PostPage() {
 						</div>
 						<div>
 							<Link to={`/author/posts/${postId}/edit`}><button className={styles.postEdit}>Edit Post</button></Link>
+						</div>
+						<div>
+							<button onClick={handleDelete} className={styles.postDelete}>Delete Post</button>
 						</div>
 					</div>
 					<h2>{post.post_title}</h2>

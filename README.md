@@ -19,5 +19,5 @@ A full-stack blog application where users can view blog posts and authors can wr
 ## Limitations
 1. No code formatting for uploaded blogs.
 2. Currently no valid reason to have a logged in user.
-3. Working on proper image uplaod handling.
-4. No way to currently get author role other than manually altering database info.
+3. No way to currently get author role other than manually altering database info.
+5. No concrete idea as to what an admin can/should do (considering removing the role entirely)

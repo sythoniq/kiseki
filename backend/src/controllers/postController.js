@@ -16,6 +16,9 @@ async function getPosts(req, res, next) {
     const posts = await prisma.post.findMany({
 			where: {
 				published: true
+			},
+			orderBy: {
+				uploadedAt: "asc"
 			}
 		})
 		return res.status(200).json({success: true, posts});
@@ -228,7 +231,6 @@ const unpublishPost = [
 	}
 ]
 
-
 module.exports = {
   getPosts,
   getPost,
@@ -237,5 +239,5 @@ module.exports = {
   updatePost,
   deletePost,
   publishPost,
-  unpublishPost
+  unpublishPost,
 }
