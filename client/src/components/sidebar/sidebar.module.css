@@ -91,3 +91,41 @@
 .authorLink > span > a {
 	color: rgba(189, 100, 150, 0.7);
 }
+
+.authorPopup {
+	position: absolute;
+	top: 20%;
+	left: 50%;
+	transform: translateX(-50%);
+	visibility: hidden;
+	flex-direction: column;
+	gap: .2em;
+	padding: 1.2em;
+	background: white;
+	color: black;
+	border-radius: 12px;
+}
+
+.authorPopup form {
+	display: flex;
+	flex-direction: column;
+	gap: .2em;
+}
+
+.authorPopup form input {
+	padding: .1em .2em;
+}
+
+.authorPopup form input:focus {
+	outline: none;	
+}
+
+.authorPopup form button {
+	align-self: center;
+	font-size: 1rem;
+	padding: 0 .2em;
+	cursor: pointer;
+	background: transparent;
+	border: none;
+	border-bottom: 1px solid black;
+}

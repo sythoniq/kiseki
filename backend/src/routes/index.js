@@ -8,5 +8,6 @@ index.post("/", auth.validateUser, controller.getUser)
 
 index.post("/register", controller.handleRegister)
 index.post("/login", controller.handleLogin)
+index.post("/role", auth.validateUser, controller.handleNewAuthor)
 
 module.exports = index

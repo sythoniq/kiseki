@@ -79,9 +79,37 @@ const handleLogin = [
 	}
 ]
 
+const handleNewAuthor = [
+	validator.validateAnswer,
+	async function handleNewAuthor(req, res) {
+		try {
+			const result = validator.validate(req, res)
+			if (!result.success) return;
+			const data = result.data
+
+			if (data.answer != process.env.AUTHOR_ANSWER) {
+				return res.status(401).json({success: false, message: "Wrong!"})
+			}
+			await prisma.user.update({
+				where: {
+					user_id: Number(req.user.user_id)
+				},
+				data: {
+					author: true,
+					admin: true
+				}
+			})
+			return res.status(200).json({success: true, message: "Correct"})
+		} catch (e) {
+			return res.status(500).json({success: false, message: "Server Error!"})
+		}
+	}
+]
+
 
 module.exports = {
 	getUser,
 	handleRegister,
-  handleLogin
+  handleLogin,
+	handleNewAuthor
 }

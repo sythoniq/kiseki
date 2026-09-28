@@ -48,7 +48,6 @@ export default function New() {
 			}
 
 			toast.success(data.message)
-			return;
 			return navigate("/author")
 		} catch(e) {
 			return toast.error("Something went wrong!")

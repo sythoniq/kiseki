@@ -8,6 +8,10 @@ const sanitizeOptions = {
 	}
 }
 
+const validateAnswer = [
+	body("answer").notEmpty().withMessage("Answer not provided").escape().trim().toLowerCase()
+]
+
 const validateUser = [
 	body("username").notEmpty().withMessage("Username not provided!")
 		.isLength({min: 3}).withMessage("Username must be more than 3 characters!"),
@@ -49,6 +53,7 @@ function validate(req, res) {
 }
 
 module.exports = {
+	validateAnswer,
 	validateUser,
 	validatePost,
 	validateComment,
