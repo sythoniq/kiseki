@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { Link, useNavigate, useParams } from 'react-router'
 import styles from './post.module.css'
 import useGetPost from '../../hooks/useGetPost.js'
 
@@ -27,6 +27,7 @@ export default function Post() {
 		<section className={styles.postPage}>
 			<main className={styles.post}>
 				<div className={styles.postDetails}>
+					<Link to="/"><button>Back</button></Link>
 					<div>
 						<span className={styles.postDate}>
 							{new Date(post.uploadedAt).toLocaleDateString(undefined,

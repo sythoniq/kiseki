@@ -70,6 +70,7 @@ export default function PostPage() {
 			return toast.error("Something went wrong")
 		}
 	}
+
 	return (
 		<section className={styles.content}>
 			<main className={styles.post}>

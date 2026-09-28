@@ -1,13 +1,23 @@
 # Kiseki
-Work through the todos in each section to close in on the end.
+A full-stack blog application where users can view blog posts and authors can write new posts and edit old posts as well as publish or unpublish posts.
 
-## Client
+## Features
+- User authentication using JWT
+- Blog posting, viewing, and editing.
+- Blog content sanitization.
 
-## Backend
+## Tech Stack
+**Frontend:** React, CSS, React Router, React-hot-toast, TinyMCE
+**Backend:** NodeJS, Express
+**Database:** Postgres, Supabase
 
-### List of current limitations that need to be worked on.
+## Screenshots
+**Login/Register Page**
+**Blog Post Page**
+**Author Page**
 
-# ** IMPORTANT.... **
-1. Logging - There needs to be a way for the backend to log errors that occur for reference later on if the need arises... at this point in time using console errors could work but a better solution is going to be helpful in the long run.
-
-
+## Limitations
+1. No code formatting for uploaded blogs.
+2. Currently no valid reason to have a logged in user.
+3. Working on proper image uplaod handling.
+4. No way to currently get author role other than manually altering database info.
