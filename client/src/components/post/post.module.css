@@ -6,6 +6,7 @@
 	gap: .5em;
 	height: 100%;
 	overflow: scroll;
+	width: 100%;
 }
 
 .post {

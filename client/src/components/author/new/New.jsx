@@ -105,8 +105,6 @@ export default function New() {
 						autoresize_bottom_margin: 20,
 						autoresize_overflow_padding: 10,
 						statusbar: false,
-						automatic_uploads: false,
-						images_upload_handler: handleImage
 					}}
 				/>
 				<button>Save</button>

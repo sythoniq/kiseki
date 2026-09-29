@@ -3,7 +3,7 @@ A full-stack blog application where users can view blog posts and authors can wr
 
 ## Features
 - User authentication using JWT
-- Blog posting, viewing, and editing.
+- Blog CRUD.
 - Blog content sanitization.
 
 ## Tech Stack
@@ -12,10 +12,16 @@ A full-stack blog application where users can view blog posts and authors can wr
 **Database:** Postgres, Supabase
 
 ## Screenshots
+**Main Page**
+![Main Page](./screenshots/main.png)
 **Login/Register Page**
+![Login/Register Page](./screenshots/login-reg.png)
 **Blog Post Page**
+![Blog Post Page](./screenshots/blog.png)
 **Author Page**
+![Author Page](./screenshots/author.png)
+**New/Edit Post Page**
+![New/Edit Post Page](./screenshots/new-edit.png)
 
 ## Limitations
 1. No code formatting for uploaded blogs.
-2. Currently no valid reason to have a logged in user.
