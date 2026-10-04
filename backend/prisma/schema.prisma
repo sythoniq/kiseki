@@ -9,21 +9,21 @@ datasource db {
 }
 
 model User {
-  author    Boolean   @default(false)
+  author    Boolean @default(false)
   user_hash String
-  user_id   Int       @id @default(autoincrement())
-  user_name String    @unique
-  admin     Boolean   @default(false)
+  user_id   Int     @id @default(autoincrement())
+  user_name String  @unique
+  admin     Boolean @default(false)
   posts     Post[]
 }
 
 model Post {
-  published     Boolean   @default(false)
-  uploadedAt    DateTime  @default(now())
+  published     Boolean  @default(false)
+  uploadedAt    DateTime @default(now())
   author_id     Int
   post_content  String
-  post_id       Int       @id @default(autoincrement())
+  post_id       Int      @id @default(autoincrement())
   post_title    String
   post_category String
-  author        User      @relation(fields: [author_id], references: [user_id])
+  author        User     @relation(fields: [author_id], references: [user_id])
 }
