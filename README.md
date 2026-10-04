@@ -25,3 +25,4 @@ A full-stack blog application where users can view blog posts and authors can wr
 
 ## Limitations
 1. No code formatting for uploaded blogs.
+2. Issue with when a user has a outdated jwt-token or a invalid one... the entire page doesnt work anymore
