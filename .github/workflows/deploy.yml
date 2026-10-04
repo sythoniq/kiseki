@@ -30,8 +30,8 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          VITE_BASE_API: ${{ vars.VITE_BASE_API }}  
-          VITE_TINY_API: ${{ vars.VITE_TINY_API }}
+          VITE_BASE_API: ${{ secrets.VITE_BASE_API }}  
+          VITE_TINY_API: ${{ secrets.VITE_TINY_API }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: client/dist
